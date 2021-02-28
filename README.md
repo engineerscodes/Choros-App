@@ -1,0 +1,2 @@
+# Choros-App
+DJANGO

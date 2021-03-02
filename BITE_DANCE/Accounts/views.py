@@ -49,9 +49,9 @@ def reg(request) :
                 user.save()
                 send_mail(
                     'THANKS FOR REG',
-                    'HELLO ITS DJANGO MESSAGE',
-                    'motherpuss14@gmail.com',
-                    ['mknaveen837@gmail.com'],
+                    'HELLO ITS DJANGO MESSAGE TEST',
+                    'naveennoob95@gmail.com',
+                    [email],
                     fail_silently=False,
                 )
                 messages.info(request, "DONE ")

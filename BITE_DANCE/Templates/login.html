@@ -1,0 +1,37 @@
+{% load static %} <!---import to do sooo--->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/47bc99a80b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/loginStyle.css'%}">
+    <title>Login Form</title>
+
+</head>
+
+<body>
+    <div class="login">
+        <h1>Welcome</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            <label>
+                <i class="fa fa-user"></i>
+                <input type="text" placeholder="Enter Username.."  name="user-name">
+            </label>
+            <label>
+            <i class="fa fa-lock"></i>
+            <input type="password" placeholder="Enter password.." name="passwordcnf">
+            </label>
+            <input type="checkbox" >I Agree</input>
+            <button type="submit">Login</button>
+        </form>
+
+        {% for message in messages %}
+            {{message}}
+        {% endfor %}
+    </div>
+</body>
+</html>

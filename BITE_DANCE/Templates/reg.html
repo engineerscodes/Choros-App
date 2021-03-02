@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/regstyle.css'%}">
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="links" >
+      <a href="#">Sign Up</a>
+      <a href="/account/login">LOGIN</a>
+    </div>
+
+    <form class="form"  method="post">
+        {% csrf_token %}
+      <div class="form-group">
+        <h4 class="heading">NAME</h4>
+        <input type="text" placeholder="Your name" name="names"/>
+            {% for message in messages %}
+                  {{message}}
+            {% endfor %}
+      </div>
+
+       <div class="form-group">
+        <h4 class="heading">E-MAIL</h4>
+        <input type="text" placeholder="example@example.com" name="emails" required />
+
+      </div>
+
+       <div class="form-group">
+        <h4 class="heading">PASSWORD</h4>
+        <input type="text" placeholder="Password" name="password_cfn"/>
+      </div>
+
+      <button class="button" type="submit">sign up</button>
+    </form>
+
+  </div>
+
+</body>
+
+</html>

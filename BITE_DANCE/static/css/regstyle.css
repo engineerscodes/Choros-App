@@ -1,0 +1,123 @@
+@import url{ "https://fonts.googleapis.com/css?family=Kulim+Park:300,400,600&display=swap"}
+
+body{
+  font-size:62.5%;
+  font-family: 'Kulim Park', sans-serif;
+  background-color:#6f79c1;
+  font-weight:600;
+
+  display:flex;
+  justify-content: center;
+  align-items:center;
+
+}
+
+.container{
+
+  width:25rem;
+  height:30rem;
+  border-radius:4px;
+
+   background-image:
+    linear-gradient(
+      to bottom,
+      #f9f9f9, #ffffff
+    );
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+
+
+}
+
+.links{
+
+  display:flex;
+  justify-content:flex-start;
+
+  margin-bottom:2rem;
+
+
+}
+
+.links > a{
+
+  font-size: 1rem;
+  text-decoration: none;
+  color:black;
+  padding: .4rem .8rem;
+
+
+}
+
+.links > a:first-child{
+  margin-right:1rem;
+  border-bottom:2px solid black;
+
+}
+
+.heading{
+  font-size:.6rem;
+  font-weight:300;
+}
+
+.form{
+
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+
+}
+
+.form-group{
+   margin-bottom:2rem;
+}
+
+.form-group > input {
+
+  width:12rem;
+  border:none;
+  border-bottom: 2px solid #9eaaff;
+  font-size:.8rem;
+  font-weight:300;
+
+  background:none;
+  color:black;
+  outline:none;
+  transition: all .1s;
+
+
+}
+ input:focus {
+
+  border-bottom: 2px solid #6f79c1;
+
+}
+
+.form-group > input::-webkit-input-placeholder {
+
+
+  outline:none;
+  color:#ddd;
+}
+
+
+
+
+
+
+
+.button{
+  background-image:linear-gradient(to bottom ,#8b98f2,#7785e7);
+  border-radius:3px;
+  height:2rem;
+  width:5rem;
+  border:none;
+  color:white;
+  cursor:pointer;
+  font-size:.8rem;
+  letter-spacing:1px;
+
+}

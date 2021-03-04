@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import  auth,User
 from django.contrib import messages
+from .Token_Gen import Token_generator
 from django.core.mail import send_mail
 
 from django.http import HttpResponse
@@ -45,15 +46,20 @@ def reg(request) :
                  return redirect('/account/reg/')
           else :
                 user=User.objects.create_user(username=userName,password=password,email=email)
-
+                user.is_active=False
                 user.save()
+                # PasswordResetTokenGenerator use it to verfiy and create token also
+                Useract_token = Token_generator()
+                Useract_token.make_token(user)
+                print(Useract_token)
                 send_mail(
                     'THANKS FOR REG',
-                    'HELLO ITS DJANGO MESSAGE TEST',
+                    f'HELLO ITS DJANGO MESSAGE TEST With Toeken {Useract_token}',
                     'naveennoob95@gmail.com',
                     [email],
                     fail_silently=False,
                 )
+
                 messages.info(request, "DONE ")
                 return redirect('/account/reg/')
 

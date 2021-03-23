@@ -1,10 +1,20 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import  auth,User
 from django.contrib import messages
+from django.views import View
+
 from .Token_Gen import Token_generator
 from django.core.mail import send_mail
 
+from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
+
 from django.http import HttpResponse
+
+from django.template.loader import  render_to_string
+
+from django.utils.encoding import  force_text,force_bytes,  DjangoUnicodeDecodeError
+
+from django.contrib.sites.shortcuts import get_current_site
 
 # Create your views here.
 
@@ -50,11 +60,23 @@ def reg(request) :
                 user.save()
                 # PasswordResetTokenGenerator use it to verfiy and create token also
                 Useract_token = Token_generator()
-                Useract_token.make_token(user)
-                print(Useract_token)
+
+
+
+                message=render_to_string('activate.html',
+                {
+                       'user':user,
+                       'domain':get_current_site(request),
+                        'uid':urlsafe_base64_encode(force_bytes(user.pk)),
+                         'TOKEN': Useract_token.make_token(user)
+
+
+                }
+                                         )
+
                 send_mail(
                     'THANKS FOR REG',
-                    f'HELLO ITS DJANGO MESSAGE TEST With Toeken {Useract_token}',
+                    message,
                     'naveennoob95@gmail.com',
                     [email],
                     fail_silently=False,
@@ -62,4 +84,27 @@ def reg(request) :
 
                 messages.info(request, "DONE ")
                 return redirect('/account/reg/')
+
+
+
+
+def AUTHUSERNAME(request,uidb64,token):
+
+     try:
+          uid=force_text(urlsafe_base64_decode(uidb64))
+          user=User.objects.get(pk=uid)
+     except Exception as identifier :
+         user=None
+     Useract_token = Token_generator()
+     if user is not None and Useract_token.check_token(user,token):
+         user.is_active = True
+         user.save()
+
+         messages.info(request,"VALIDATED UAER PLZ LOGIN ")
+
+         return  redirect('/account/login')
+
+     return render(request,'auth_failed.html',status=401)
+
+
 

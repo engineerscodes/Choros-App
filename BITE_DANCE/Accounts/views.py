@@ -16,6 +16,28 @@ from django.utils.encoding import  force_text,force_bytes,  DjangoUnicodeDecodeE
 
 from django.contrib.sites.shortcuts import get_current_site
 
+
+import threading
+import  time
+
+
+class THREADEMAIL(threading.Thread):
+    def __init__(self, message, email):
+        self.message = message
+        self.email = email
+        threading.Thread.__init__(self)
+
+    def run(self):
+            send_mail(
+                'THANKS FOR REG',
+                self.message,
+                'naveennoob95@gmail.com',
+                [self.email],
+                fail_silently=False,
+
+            )
+
+
 # Create your views here.
 
 def login(request) :
@@ -72,18 +94,26 @@ def reg(request) :
 
 
                 }
-                                         )
-
-                send_mail(
-                    'THANKS FOR REG',
-                    message,
-                    'naveennoob95@gmail.com',
-                    [email],
-                    fail_silently=False,
                 )
+                ''' send_mail(
+                                   'THANKS FOR REG',
+                                   message,
+                                   'naveennoob95@gmail.com',
+                                   [email],
+                                   fail_silently=False,
+                )'''
+
+                THREADEMAIL(message,email).start()
+
+
 
                 messages.info(request, "DONE ")
                 return redirect('/account/reg/')
+
+
+
+
+
 
 
 

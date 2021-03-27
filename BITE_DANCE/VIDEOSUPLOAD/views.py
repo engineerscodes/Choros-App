@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.http import HttpResponse
 from .forms import vd_form
+from .models import videoUpload
+
 def PUTVD(request):
 
     if request.method =='POST':
@@ -12,3 +14,9 @@ def PUTVD(request):
     else :
         form=vd_form()
     return render(request,"upload.html",{"form":form})
+
+def allVideos(request):
+
+     if request.method =='GET':
+         allmp4=videoUpload.objects.all()
+         return  render(request,'gallery.html',{'data':allmp4})

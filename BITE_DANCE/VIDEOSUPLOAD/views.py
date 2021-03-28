@@ -8,8 +8,14 @@ def PUTVD(request):
 
     if request.method =='POST':
         form=vd_form(data=request.POST,files=request.FILES)
+
+
+
+
         if form.is_valid() :
-            form.save()
+            new_form=form.save(commit=False)
+            new_form.username="NAVEEN"
+            new_form.save()
             return HttpResponse("DONE UPLOADED ")
     else :
         form=vd_form()

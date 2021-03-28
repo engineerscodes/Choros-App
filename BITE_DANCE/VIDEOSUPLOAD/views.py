@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.http import HttpResponse
 from .forms import vd_form
 from .models import videoUpload
+from datetime import date
 
 def PUTVD(request):
 
@@ -15,6 +16,7 @@ def PUTVD(request):
         if form.is_valid() :
             new_form=form.save(commit=False)
             new_form.username="NAVEEN"
+            new_form.date=date.today().strftime('%Y-%m-%d')
             new_form.save()
             return HttpResponse("DONE UPLOADED ")
     else :

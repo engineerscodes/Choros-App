@@ -8,18 +8,27 @@ from datetime import date
 def PUTVD(request):
 
     if request.method =='POST':
-        form=vd_form(data=request.POST,files=request.FILES)
+        user = request.user
+        if(user.is_authenticated) :
+              form=vd_form(data=request.POST,files=request.FILES)
+              print(user.is_authenticated)
+              if form.is_valid():
+                  new_form = form.save(commit=False)
+                  new_form.username = user
+                  new_form.date = date.today().strftime('%Y-%m-%d')
+                  new_form.save()
+                  return HttpResponse("DONE UPLOADED ")
+        if(user.is_authenticated==False) :
+
+            return redirect('/account/login')
 
 
 
-
-        if form.is_valid() :
-            new_form=form.save(commit=False)
-            new_form.username="NAVEEN"
-            new_form.date=date.today().strftime('%Y-%m-%d')
-            new_form.save()
-            return HttpResponse("DONE UPLOADED ")
     else :
+        user = request.user
+        if (user.is_authenticated == False):
+            return redirect('/account/login')
+
         form=vd_form()
     return render(request,"upload.html",{"form":form})
 

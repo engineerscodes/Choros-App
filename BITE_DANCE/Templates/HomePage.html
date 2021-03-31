@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HOME-PAGE</title>
+</head>
+<body>
+    <div>
+        <div style="display :flex; flex-direction:column; justify-content: center;">
+
+          {% for i in videos %}
+          <div>
+             <img src="{{i.thumbnail}}" width="500px" height="500px">
+              <h1>{{i.captions}}</h1>
+              <h3>by {{i.username}} DATE :{{i.date}}</h3>
+              <h3>ID :{{i.id}}</h3>
+              <h3><a href="/upload/videos/{{i.url_64encoding}}">LINK</a> </h3>
+          <br>
+          </div>
+          {% endfor %}
+
+
+      </div>
+</body>
+    </div>
+
+</body>
+</html>

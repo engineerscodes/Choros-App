@@ -6,9 +6,9 @@ from .models import videoUpload,Marks
 from datetime import date
 from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 
-from django.utils.encoding import  force_text,force_bytes,  DjangoUnicodeDecodeError
+from django.utils.encoding import  force_text,force_bytes
 from django.apps import apps
-from django.db.models import Q
+#from django.db.models import Q
 
 Mode=apps.get_model('Moderator','Mode')
 

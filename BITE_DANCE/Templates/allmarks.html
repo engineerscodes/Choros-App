@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MARKS -{{ user.username }}</title>
+</head>
+<body>
+       {% for i in marks%}
+    <div>
+        <h1>{{i.videoId}}</h1>
+        <h1>{{i.marks}}</h1>
+        <h3>{{i.date}}</h3>
+        <h4>Upload user-{{i.by_email}}</h4>
+        <a href="/upload/videos/{{i.video_link}}" target="_blank">View</a>
+        <hr>
+
+    </div>
+
+     {% endfor %}
+
+    <hr><hr>
+    {% for i in LeftOver%}
+    <div style="background-color: coral;">
+        <h1>{{i.captions}}</h1>
+        <h3>{{i.date}}</h3>
+        <h4>Upload user-{{i.username}}</h4>
+        <a href="/upload/videos/{{i.url_64encoding}}" target="_blank">View</a>
+        <hr>
+
+    </div>
+
+     {% endfor %}
+
+</body>
+</html>

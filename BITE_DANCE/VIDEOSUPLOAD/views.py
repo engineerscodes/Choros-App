@@ -8,6 +8,7 @@ from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 
 from django.utils.encoding import  force_text,force_bytes,  DjangoUnicodeDecodeError
 from django.apps import apps
+from django.db.models import Q
 
 Mode=apps.get_model('Moderator','Mode')
 
@@ -73,7 +74,8 @@ def getSingleVideo(request,uuid):
               mode_team=Mode.objects.get(email=request.user.email)
             except Exception:
               mode_team = None
-            if mode_team is not None:
+
+            if mode_team is not None and  mode_team.username==request.user.username and mode_team.mode_active:
                 return render(request,'video.html',{'data':video,'MODES':True})
             else :
                 return render(request, 'video.html', {'data': video, 'MODES': False})
@@ -113,14 +115,24 @@ def homePage(request):
         return render(request,'HomePage.html',{'videos':videos})
 
 
-def Moderator(request,uuid):
-    try:
-        id = force_text(urlsafe_base64_decode(uuid))
-        video = videoUpload.objects.get(pk=id)
-    except Exception:
-        video = None
+def Moderator(request):
 
-    if video is not None:
-        return HttpResponse("GOT THE VIDEO")
+    if request.method=='GET':
+        try:
+            mode_team = Mode.objects.get(email=request.user.email)
+        except Exception:
+            mode_team = None
 
-    return HttpResponse("MODERATIONS")
+        if mode_team is not None and mode_team.username == request.user.username and mode_team.mode_active:
+           allmark_user=Marks.objects.filter(moderator_email=request.user.email)
+           allmark_user_id=allmark_user.values_list('videoId')
+           #print(allmark_user_id,"######################################")
+           #print(allmark_user)
+           #print(type(allmark_user))
+           left_out_video=videoUpload.objects.exclude(pk__in=allmark_user_id)
+           #print(left_out_video,"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+
+           return  render(request,'allmarks.html',{'marks':allmark_user,'LeftOver':left_out_video})
+        else :
+            return redirect('/upload/videos')
+         #return HttpResponse("MODERATIONS")

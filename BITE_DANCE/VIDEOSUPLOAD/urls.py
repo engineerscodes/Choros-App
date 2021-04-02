@@ -7,6 +7,6 @@ urlpatterns = [
     path('videos/',views.allVideos,name="gallery"),
     path('videos/<uuid>',views.getSingleVideo,name="Filter Video"),
     path('HomePage/',views.homePage,name="HOMEPAGE"),
-    path('moderator/<uuid>',views.Moderator,name="Moderator's")
+    path('moderator/',views.Moderator,name="Moderator's")
 
 ]

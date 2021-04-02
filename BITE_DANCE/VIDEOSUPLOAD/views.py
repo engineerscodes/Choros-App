@@ -7,7 +7,9 @@ from datetime import date
 from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 
 from django.utils.encoding import  force_text,force_bytes,  DjangoUnicodeDecodeError
+from django.apps import apps
 
+Mode=apps.get_model('Moderator','Mode')
 
 def PUTVD(request):
 
@@ -67,7 +69,14 @@ def getSingleVideo(request,uuid):
           video=None
 
         if video is not None :
-            return render(request,'video.html',{'data':video})
+            try :
+              mode_team=Mode.objects.get(email=request.user.email)
+            except Exception:
+              mode_team = None
+            if mode_team is not None:
+                return render(request,'video.html',{'data':video,'MODES':True})
+            else :
+                return render(request, 'video.html', {'data': video, 'MODES': False})
         else :
             return redirect('/upload/videos')
 

@@ -73,9 +73,13 @@ def reg(request) :
           password =request.POST['password_cfn']
           email =request.POST['emails']
 
-          if User.objects.filter(username=userName).exists() :
+          if User.objects.filter(username=userName).exists():
                  messages.info(request," UserName is not Available")
                  return redirect('/account/reg/')
+          if  User.objects.filter(email=email).exists() :
+              messages.info(request, " MAIL IS ALREADY REG")
+              return redirect('/account/reg/')
+
           else :
                 user=User.objects.create_user(username=userName,password=password,email=email)
                 user.is_active=False

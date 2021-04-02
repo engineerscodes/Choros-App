@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.http import HttpResponse
 from .forms import vd_form
-from .models import videoUpload
+from .models import videoUpload,Marks
 from datetime import date
 from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 
@@ -59,17 +59,39 @@ def allVideos(request):
 
 def getSingleVideo(request,uuid):
 
-    try :
-     id = force_text(urlsafe_base64_decode(uuid))
-     video=videoUpload.objects.get(pk=id)
-    except Exception :
-      video=None
+     if request.method=='GET':
+        try :
+         id = force_text(urlsafe_base64_decode(uuid))
+         video=videoUpload.objects.get(pk=id)
+        except Exception :
+          video=None
 
-    if video is not None :
-        return render(request,'video.html',{'data':video})
+        if video is not None :
+            return render(request,'video.html',{'data':video})
+        else :
+            return redirect('/upload/videos')
 
-    return redirect('/upload/videos')
+     if request.method=='POST':
+         try:
+             id_post = force_text(urlsafe_base64_decode(uuid))
+             video_post = videoUpload.objects.get(pk=id_post)
+         except Exception:
+             video_post = None
 
+         if video_post is not None:
+                video_marks=Marks()
+                video_marks.videoId =id_post
+                video_marks.video_link=uuid
+                video_marks.by_email=video_post.username
+
+                video_marks.moderator_email= request.user.email
+                video_marks.date=date.today().strftime('%Y-%m-%d')
+                video_marks.marks=request.POST['video_marks']
+                video_marks.verfiyed=True
+                video_marks.save()
+                return redirect(f'/upload/videos/{uuid}')
+         else:
+             return redirect('/upload/videos')
 
 '''from moviepy.editor import *
 clip = VideoFileClip("example.mp4")
@@ -80,3 +102,16 @@ def homePage(request):
     if request.method =='GET':
         videos=videoUpload.objects.all()
         return render(request,'HomePage.html',{'videos':videos})
+
+
+def Moderator(request,uuid):
+    try:
+        id = force_text(urlsafe_base64_decode(uuid))
+        video = videoUpload.objects.get(pk=id)
+    except Exception:
+        video = None
+
+    if video is not None:
+        return HttpResponse("GOT THE VIDEO")
+
+    return HttpResponse("MODERATIONS")

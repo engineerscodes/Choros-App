@@ -2,12 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>{{data.captions}}</title>
 </head>
 <body>
          <div style="display :flex; flex-direction:column; justify-content: center;">
-
-
           <div>
           <video controls="controls"   width="500px" height="500px">
              <source src="{{data.video.url}}"  type="video/mp4"/>
@@ -17,7 +15,13 @@
               <h3>ID :{{data.id}}</h3>
           <br>
           </div>
-
+          {% if  user.is_authenticated and user.is_staff %}
+           <form action="" method="post">
+             {% csrf_token %}
+             marks: <input type="number" name="video_marks">
+            <button type="submit">SUBMIT</button>
+           </form>
+           {% endif %}
 
 
       </div>

@@ -17,11 +17,13 @@ class videoUpload(models.Model):
 
 
 class Marks(models.Model):
+    class Meta:
+        unique_together=(('videoId','moderator_email'))
     videoId=models.CharField(max_length=250)
     by_email=models.CharField(max_length=250)
     marks=models.IntegerField()
     moderator_email=models.CharField(max_length=250)
-    video_link=models.URLField()
+    video_link=models.CharField(max_length=2048)
     date=models.DateField(default='2001-04-12')
     verfiyed=models.BooleanField(default=False)
     def __str__(self):

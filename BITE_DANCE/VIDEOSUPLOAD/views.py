@@ -95,7 +95,20 @@ def getSingleVideo(request,uuid):
              video_post = None
 
          if video_post is not None:
+             try :
+                check_marks=Marks.objects.get(videoId=id_post,moderator_email=request.user.email)
+                print(check_marks.marks,'###############')
+             except Exception:
+                 check_marks=None
+             if check_marks is not  None:
+                 check_marks.marks=request.POST['video_marks']
+                 check_marks.date=date.today().strftime('%Y-%m-%d')
+                 check_marks.save()
+                 return redirect(f'/upload/videos/{uuid}')
+             if check_marks is None:
+
                 video_marks=Marks()
+
                 video_marks.videoId =id_post
                 video_marks.video_link=uuid
                 video_marks.by_email=video_post.username

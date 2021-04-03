@@ -76,7 +76,12 @@ def getSingleVideo(request,uuid):
               mode_team = None
 
             if mode_team is not None and  mode_team.username==request.user.username and mode_team.mode_active:
-                return render(request,'video.html',{'data':video,'MODES':True})
+                    current_video_marks=Marks.objects.filter(videoId=id)
+                    #print(current_video_marks,'###################################')
+                    return render(request,'video.html',{'data':video,'MODES':True,'Marks':current_video_marks})
+            elif request.user.is_staff:
+                current_video_marks = Marks.objects.filter(videoId=id)
+                return render(request, 'video.html', {'data': video, 'MODES': False,'Marks':current_video_marks})
             else :
                 return render(request, 'video.html', {'data': video, 'MODES': False})
         else :

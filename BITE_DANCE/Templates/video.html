@@ -25,5 +25,17 @@
 
 
       </div>
+         {% if user.is_authenticated %}
+         {% if MODES  or user.is_staff %}
+      <div>
+       <ol>
+        {% for j in Marks %}
+           <li>{{j.marks}} by-{{j.moderator_email}}</li>
+         {% endfor %}
+       </ol>
+      </div>
+         {% endif %}
+         {% endif %}
+
 </body>
 </html>

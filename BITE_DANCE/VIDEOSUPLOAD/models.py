@@ -10,12 +10,15 @@ class videoUpload(models.Model):
     captions=models.CharField(max_length=100)
     username=models.CharField(max_length=100)
     date=models.DateField(default='2001-04-12')
-    thumbnail=models.URLField()
+    thumbnail=models.TextField(editable=False)
     video=models.FileField(upload_to="videos/%y",validators=[file_size,FileExtensionValidator(allowed_extensions=['mp4','MOV','MKV'])])
     url_64encoding=models.CharField(max_length=2048,default='/upload/videos/')
+    Total_marks=models.IntegerField(default=0)
 
     def __str__(self):
         return  self.captions
+    def total_marks(self):
+        return self.Total_marks
 
 
 class Marks(models.Model):

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>all marks</title>
+</head>
+<style>
+table{
+ border: 2px solid black;
+ width:100%;
+}
+    th, td {
+  border-bottom: 5px solid #000;
+}
+tr:nth-child(even) {background-color: #f2f2f2;}
+</style>
+<body>
+    <div>
+         <table style="">
+             <tr>
+
+                 <td>CAPTIONS</td>
+                 <td> link </td>
+                 <td>marks</td>
+                 <td>USER</td>
+             </tr>
+              {% for i in data %}
+             <tr>
+                 <td>{{i.captions}}</td>
+                 <td><a href="/upload/videos/{{i.url_64encoding}}">LINK</a></td>
+                 <td>{{i.Total_marks}}</td>
+                 <td>{{i.username}}</td>
+
+             </tr>
+             {% endfor %}
+         </table>
+    </div>
+</body>
+</html>

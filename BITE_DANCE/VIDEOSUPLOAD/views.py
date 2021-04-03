@@ -104,15 +104,23 @@ def getSingleVideo(request, uuid):
         if video_post is not None and request.POST['video_marks'] is not '':
             try:
                 check_marks = Marks.objects.get(videoId=id_post, moderator_email=request.user.email)
-                print(check_marks.marks, '###############')
+                #print(video_post.total_marks())
+
             except Exception:
                 check_marks = None
-            if check_marks is not None and neg>0:
+            if check_marks is not None and neg>=0:
+                #print(neg,'$$$$$$$$$$$$$$$$',check_marks.marks)
+                video_post.Total_marks = int(video_post.Total_marks) +(int(-check_marks.marks) + neg)
+                #print(video_post.total_marks(),"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$",video_post.Total_marks)
+                video_post.save()
                 check_marks.marks = request.POST['video_marks']
                 check_marks.date = date.today().strftime('%Y-%m-%d')
                 check_marks.save()
                 return redirect(f'/upload/videos/{uuid}')
-            if check_marks is None and neg>0:
+            if check_marks is None and neg>=0:
+                video_post.Total_marks = int(video_post.Total_marks) + neg
+                #print(video_post.total_marks(), "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+                video_post.save()
                 video_marks = Marks()
 
                 video_marks.videoId = id_post
@@ -163,7 +171,10 @@ def Moderator(request):
         # return HttpResponse("MODERATIONS")
 
 def GodMode(request) :
-    if request.method=='GET':
-       marks=Marks.objects.all()
-       print(marks)
-       return HttpResponse("NAVEEN")
+    if request.method=='GET' and request.user.is_staff:
+       Allvideo_mod=videoUpload.objects.order_by('Total_marks').reverse()
+
+       return render(request,'getmarks.html',{'data':Allvideo_mod})
+    if request.method =='GET':
+        return HttpResponse("NO ACCESS")
+

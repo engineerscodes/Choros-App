@@ -18,13 +18,18 @@
           {% if  user.is_authenticated and MODES %}
            <form  method="post">
              {% csrf_token %}
-             marks: <input type="number" name="video_marks" required>
+             marks: <input type="number" name="video_marks" required min="0">
             <button type="submit">SUBMIT</button>
            </form>
            {% endif %}
 
         <h1>THE MARKS WILL BE OVERRIDE IF RECORD EXIST</h1>
       </div>
+         {% for mess in messages %}
+         <h3>{{mess}}</h3>
+         {% endfor %}
+
+
          {% if user.is_authenticated %}
          {% if MODES  or user.is_staff %}
       <div>

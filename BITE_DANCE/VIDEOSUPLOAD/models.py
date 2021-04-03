@@ -1,6 +1,7 @@
 from django.db import models
 from .VideoSizeVal import file_size
 from django.core.validators import FileExtensionValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 # Create your models here.
 
 
@@ -12,6 +13,7 @@ class videoUpload(models.Model):
     thumbnail=models.URLField()
     video=models.FileField(upload_to="videos/%y",validators=[file_size,FileExtensionValidator(allowed_extensions=['mp4','MOV','MKV'])])
     url_64encoding=models.CharField(max_length=2048,default='/upload/videos/')
+
     def __str__(self):
         return  self.captions
 
@@ -21,7 +23,7 @@ class Marks(models.Model):
         unique_together=(('videoId','moderator_email'))
     videoId=models.CharField(max_length=250)
     by_email=models.CharField(max_length=250)
-    marks=models.IntegerField()
+    marks=models.IntegerField(validators=[MinValueValidator(0)])
     moderator_email=models.CharField(max_length=250)
     video_link=models.CharField(max_length=2048)
     date=models.DateField(default='2001-04-12')

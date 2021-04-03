@@ -18,7 +18,7 @@
           {% if  user.is_authenticated and MODES %}
            <form  method="post">
              {% csrf_token %}
-             marks: <input type="number" name="video_marks">
+             marks: <input type="number" name="video_marks" required>
             <button type="submit">SUBMIT</button>
            </form>
            {% endif %}

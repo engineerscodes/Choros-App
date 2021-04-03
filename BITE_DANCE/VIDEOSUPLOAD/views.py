@@ -93,8 +93,9 @@ def getSingleVideo(request,uuid):
              video_post = videoUpload.objects.get(pk=id_post)
          except Exception:
              video_post = None
-
-         if video_post is not None:
+         if request.POST['video_marks'] is '' :
+             return redirect(f'/upload/videos/{uuid}')
+         if video_post is not None and request.POST['video_marks'] is not '':
              try :
                 check_marks=Marks.objects.get(videoId=id_post,moderator_email=request.user.email)
                 print(check_marks.marks,'###############')

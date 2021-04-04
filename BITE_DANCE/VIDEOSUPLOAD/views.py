@@ -91,7 +91,7 @@ def getSingleVideo(request, uuid):
             video_post = videoUpload.objects.get(pk=id_post)
         except Exception:
             video_post = None
-        if request.POST['video_marks'] is '':
+        if request.POST['video_marks'] == '':
             return redirect(f'/upload/videos/{uuid}')
         try :
             neg=int(request.POST['video_marks'])
@@ -101,7 +101,7 @@ def getSingleVideo(request, uuid):
         except ValueError :
             messages.info(request, "NO STRING ALLOWED")
             return redirect(f'/upload/videos/{uuid}')
-        if video_post is not None and request.POST['video_marks'] is not '':
+        if video_post != None and request.POST['video_marks'] !='':
             try:
                 check_marks = Marks.objects.get(videoId=id_post, moderator_email=request.user.email)
                 #print(video_post.total_marks())
@@ -176,5 +176,5 @@ def GodMode(request) :
 
        return render(request,'getmarks.html',{'data':Allvideo_mod})
     if request.method =='GET':
-        return HttpResponse("NO ACCESS")
+        return redirect('/upload/videos')
 

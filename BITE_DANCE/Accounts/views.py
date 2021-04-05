@@ -81,6 +81,7 @@ def reg(request) :
               return redirect('/account/reg/')
 
           else :
+
                 user=User.objects.create_user(username=userName,password=password,email=email)
                 user.is_active=False
                 user.save()
@@ -141,4 +142,8 @@ def AUTHUSERNAME(request,uidb64,token):
      return render(request,'auth_failed.html',status=401)
 
 
+def logout(request):
 
+    auth.logout(request)
+
+    return redirect('/account/login')

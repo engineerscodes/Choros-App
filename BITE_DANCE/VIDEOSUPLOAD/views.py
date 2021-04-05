@@ -83,7 +83,7 @@ def getSingleVideo(request, uuid):
             else:
                 return render(request, 'video.html', {'data': video, 'MODES': False})
         else:
-            return redirect('/upload/videos')
+            return redirect('/videos/')
 
     if request.method == 'POST':
         try:
@@ -92,15 +92,15 @@ def getSingleVideo(request, uuid):
         except Exception:
             video_post = None
         if request.POST['video_marks'] == '':
-            return redirect(f'/upload/videos/{uuid}')
+            return redirect(f'/videos/{uuid}')
         try :
             neg=int(request.POST['video_marks'])
             if neg<0:
                 messages.info(request,"MARKS CANNOT BE LESS THAN ZERO")
-                return redirect(f'/upload/videos/{uuid}')
+                return redirect(f'/videos/{uuid}')
         except ValueError :
             messages.info(request, "NO STRING ALLOWED")
-            return redirect(f'/upload/videos/{uuid}')
+            return redirect(f'/videos/{uuid}')
         if video_post != None and request.POST['video_marks'] !='':
             try:
                 check_marks = Marks.objects.get(videoId=id_post, moderator_email=request.user.email)
@@ -116,7 +116,7 @@ def getSingleVideo(request, uuid):
                 check_marks.marks = request.POST['video_marks']
                 check_marks.date = date.today().strftime('%Y-%m-%d')
                 check_marks.save()
-                return redirect(f'/upload/videos/{uuid}')
+                return redirect(f'/videos/{uuid}')
             if check_marks is None and neg>=0:
                 video_post.Total_marks = int(video_post.Total_marks) + neg
                 #print(video_post.total_marks(), "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
@@ -132,9 +132,9 @@ def getSingleVideo(request, uuid):
                 video_marks.marks = request.POST['video_marks']
                 video_marks.verfiyed = True
                 video_marks.save()
-                return redirect(f'/upload/videos/{uuid}')
+                return redirect(f'/videos/{uuid}')
         else:
-            return redirect('/upload/videos')
+            return redirect('/videos')
 
 
 '''from moviepy.editor import *
@@ -167,7 +167,7 @@ def Moderator(request):
 
             return render(request, 'allmarks.html', {'marks': allmark_user, 'LeftOver': left_out_video})
         else:
-            return redirect('/upload/videos')
+            return redirect('/videos')
         # return HttpResponse("MODERATIONS")
 
 def GodMode(request) :
@@ -176,5 +176,5 @@ def GodMode(request) :
 
        return render(request,'getmarks.html',{'data':Allvideo_mod})
     if request.method =='GET':
-        return redirect('/upload/videos')
+        return redirect('/videos')
 

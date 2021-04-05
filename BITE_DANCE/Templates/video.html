@@ -1,19 +1,36 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <title>{{data.captions}}</title>
+    <link rel="stylesheet" href="{% static 'css/videoStyle.css'%}" />
   </head>
   <body>
-    <div style="display: flex; flex-direction: column; justify-content: center">
+    <header class="site-header">
+      <div class="site-identity">
+        <h1><a href="#">Beat The Heat</a></h1>
+      </div>
+      <nav class="site-navigation">
+        <ul class="nav">
+          <li><a href="/upload">Upload</a></li>
+          <li><a href="/videos">Videos</a></li>
+          <li><a href="/videos/MQ">Marks</a></li>
+          <li><a href="/bitdance/moderator/">Moderators</a></li>
+          <li><a href="/bitdance/GodMode/">View Marks</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="container">
       <div>
-        <video controls="controls" width="500px" height="500px">
+        <video controls="controls" width="75%">
           <source src="{{data.video.url}}" type="video/mp4" />
         </video>
         <h1>{{data.captions}}</h1>
-        <h3>by {{data.username}}</h3>
-        <h3>DATE :{{data.date}}</h3>
-        <h3>ID :{{data.id}}</h3>
+        <label>By: {{data.username}}</label><br />
+        <label>Date: {{data.date}}</label><br />
+        <label>Id:{{data.id}}</label><br />
         <br />
       </div>
       {% if user.is_authenticated and MODES %}
@@ -24,7 +41,7 @@
       </form>
       {% endif %}
 
-      <h1>THE MARKS WILL BE OVERRIDE IF RECORD EXIST</h1>
+      <h2>THE MARKS WILL BE OVERRIDE IF RECORD EXIST</h2>
     </div>
     {% for mess in messages %}
     <h3>{{mess}}</h3>

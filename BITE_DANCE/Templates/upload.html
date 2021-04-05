@@ -8,12 +8,28 @@
     <title>Title</title>
   </head>
   <body>
+   <header class="site-header">
+        <div class="site-identity">
+          <h1><a href="#">Beat The Heat</a></h1>
+        </div>
+        <nav class="site-navigation">
+          <ul class="nav">
+            <li><a href="/upload">Upload</a></li>
+            <li><a href="/videos">Videos</a></li>
+            <li><a href="/videos/MQ">Marks</a></li>
+            <li><a href="/bitdance/moderator/">Moderators</a></li>
+            <li><a href="/bitdance/GodMode/">View Marks</a></li>
+          </ul>
+        </nav>
+      </header>
+      
     <div class="container">
       <form class="form" action="." method="post" enctype="multipart/form-data">
         {% csrf_token %} 
         {{form.as_p}}
         <input type="url" id="output2" name="thumbIMG" style="display: none" />
         <button type="submit" id="capture">UPLOAD VIDEO</button>
+        <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
       </form>
       
         <video id="video2" controls="controls" src=""></video>

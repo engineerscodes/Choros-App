@@ -1,8 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <title>all marks</title>
+    <link rel="stylesheet" href="{% static 'css/allmarksStyle.css'%}" />
   </head>
   <style>
     table {
@@ -19,6 +21,21 @@
   </style>
   <body>
     <div>
+      <header class="site-header">
+        <div class="site-identity">
+          <h1><a href="#">Beat The Heat</a></h1>
+        </div>
+        <nav class="site-navigation">
+          <ul class="nav">
+            <li><a href="/upload">Upload</a></li>
+            <li><a href="/videos">Videos</a></li>
+            <li><a href="/videos/MQ">Marks</a></li>
+            <li><a href="/bitdance/moderator/">Moderators</a></li>
+            <li><a href="/bitdance/GodMode/">View Marks</a></li>
+          </ul>
+        </nav>
+      </header>
+
       <table style="">
         <tr>
           <td>CAPTIONS</td>

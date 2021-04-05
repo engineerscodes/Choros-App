@@ -7,6 +7,21 @@
     <link rel="stylesheet" href="{% static 'css/allmarksStyle.css'%}" />
   </head>
   <body>
+    <header class="site-header">
+      <div class="site-identity">
+        <h1><a href="#">Beat The Heat</a></h1>
+      </div>
+      <nav class="site-navigation">
+        <ul class="nav">
+          <li><a href="/upload">Upload</a></li>
+          <li><a href="/videos">Videos</a></li>
+          <li><a href="/videos/MQ">Marks</a></li>
+          <li><a href="/bitdance/moderator/">Moderators</a></li>
+          <li><a href="/bitdance/GodMode/">View Marks</a></li>
+        </ul>
+      </nav>
+    </header>
+
     <div class="container">
       {% for i in marks%}
       <div>
@@ -14,7 +29,9 @@
         <h2>Marks: {{i.marks}}</h2>
         <label>Date uploaded: {{i.date}}</label><br />
         <label>Uploaded user: {{i.by_email}}</label><br /><br />
-        <a href="/videos/{{i.video_link}}" target="_blank">View</a>
+        <div class="view">
+          <a href="/videos/{{i.video_link}}" target="_blank">View</a>
+        </div>
         <hr />
       </div>
 
@@ -25,7 +42,9 @@
         <h1>Caption: {{i.captions}}</h1>
         <label>Date uploaded: {{i.date}}</label><br />
         <label>Uploaded user: {{i.username}}</label><br /><br />
-        <a href="/videos/{{i.url_64encoding}}" target="_blank">View</a>
+        <div class="view">
+          <a href="/videos/{{i.url_64encoding}}" target="_blank">View</a>
+        </div>
         <hr />
       </div>
     </div>

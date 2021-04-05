@@ -1,5 +1,6 @@
 body {
   background-color: #f5f5dc;
+  font-family: Helvetica;
 }
 * {
   padding: 0;
@@ -37,6 +38,11 @@ a {
   margin: 1.4em 1em 1em 1em;
 }
 /* ******* */
+
+#main-footer {
+  text-align: center;
+  font-size: 18px;
+}
 .container {
   margin: 0 auto;
   width: 50%;
@@ -61,4 +67,17 @@ a:visited {
 a:active {
   background-color: #255696;
   color: white;
+}
+
+label {
+  font-size: 20px;
+  color: #697069;
+}
+
+footer {
+  padding: 20px;
+  margin-top: 20px;
+  color: #ffffff;
+  background-color: #000;
+  text-align: center;
 }

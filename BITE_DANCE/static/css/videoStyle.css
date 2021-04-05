@@ -37,6 +37,7 @@ a {
   margin: 1.4em 1em 1em 1em;
 }
 /* ******* */
+
 .container {
   margin: 0 auto;
   width: 50%;
@@ -46,19 +47,11 @@ label {
   font-size: 20px;
   color: #697069;
 }
-.view a:link,
-a:visited {
-  border-radius: 25px;
-  color: #f0ffff;
-  background-color: #1877f2;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
+video {
+  padding: 10%;
 }
 
-.view a:hover,
-a:active {
-  background-color: #255696;
-  color: white;
+label {
+  font-size: 20px;
+  color: #697069;
 }

@@ -1,6 +1,43 @@
 body {
   background-color: #f5f5dc;
 }
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-content;
+}
+/* **** header **** */
+a {
+  text-decoration: none;
+  color: #fff;
+}
+.site-header {
+  background-color: #000;
+  color: #fff;
+  border-bottom: 1px solid #ccc;
+  padding: 0.5em 1em;
+  display: flex;
+  justify-content: space-between;
+}
+
+.site-identity h1 {
+  font-size: 1.5em;
+  margin: 0.6em 0;
+  display: inline-block;
+}
+
+.site-navigation ul,
+.site-navigation li {
+  margin: 0;
+  padding: 0;
+}
+
+.site-navigation li {
+  display: inline-block;
+  margin: 1.4em 1em 1em 1em;
+}
+/* ******* */
+
 .container {
   margin: 0 auto;
   width: 50%;

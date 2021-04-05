@@ -1,25 +1,50 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>HOME-PAGE</title>
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'css/HomePageStyle.css'%}" />
   </head>
   <body>
     <div>
-      <div
-        style="display: flex; flex-direction: column; justify-content: center"
-      >
-        {% for i in videos %}
-        <div>
-          <img src="{{i.thumbnail}}" width="500px" height="500px" />
-          <h1>{{i.captions}}</h1>
-          <h3>by {{i.username}} DATE :{{i.date}}</h3>
-          <h3>ID :{{i.id}}</h3>
-          <h3><a href="/videos/{{i.url_64encoding}}">LINK</a></h3>
-          <br />
+      <header class="site-header">
+        <div class="site-identity">
+          <h1><a href="#">Beat The Heat</a></h1>
         </div>
-        {% endfor %}
+        <nav class="site-navigation">
+          <ul class="nav">
+            <li><a href="/upload">Upload</a></li>
+            <li><a href="/videos">Videos</a></li>
+            <li><a href="/videos/MQ">Marks</a></li>
+            <li><a href="/bitdance/moderator/">Moderators</a></li>
+            <li><a href="/bitdance/GodMode/">View Marks</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <div>
+        {% for i in videos %}
+        <center>
+          <div class="container">
+            <img src="{{i.thumbnail}}" width="75%" /><br />
+            <h1>Caption: {{i.captions}}</h1>
+            <label>Id: {{i.id}}</label><br />
+            <label>By: {{i.username}}</label><br />
+            <label>Date :{{i.date}}</label><br /><br />
+            <div class="view">
+              <a href="/videos/{{i.url_64encoding}}">Link</a>
+            </div>
+            <br />
+            <hr />
+          </div>
+          {% endfor %}
+        </center>
       </div>
+
+      <footer>
+        <p>Beat the heat, Copyright &copy; 2021</p>
+      </footer>
     </div>
   </body>
 </html>

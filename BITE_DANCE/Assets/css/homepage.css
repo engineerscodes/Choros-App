@@ -1,0 +1,63 @@
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        color: rgb(255, 255, 255);
+        background: rgb(1, 6, 6);
+    }
+
+
+    .Header {
+        display: flex;
+        width: 100%;
+
+        justify-content: space-between;
+        height: 80px;
+        align-items: center;
+    }
+
+    .Header .right {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: flex-end;
+        text-align: center;
+    }
+
+    .Header .right div {
+        padding: 10px;
+        margin: 10px;
+        width: 250px;
+
+    }
+
+    .about {
+        text-align: center;
+        margin: 30px auto;
+        text-transform: uppercase;
+        text-decoration: underline;
+    }
+
+    .vidoeGrid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        align-items: center;
+        justify-items: center;
+        border-radius: 5px;
+        grid-row-gap: 50px;
+    }
+
+    .vidoeDjango {
+        width: 340px;
+        overflow: hidden;
+        padding: 10px;
+    }
+
+    .vidoeDjango h5 {
+        overflow: hidden;
+
+    }
+
+    #pad {
+        margin-top: 10px;
+    }

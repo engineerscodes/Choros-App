@@ -1,26 +1,31 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
-</head>
-<body>
-      <div style="display :flex; flex-direction:column; justify-content: center;">
-
-          {% for i in data %}
-          <div>
-          <video controls="controls"   width="500px" height="500px">
-             <source src="{{i.video.url}}"  type="video/mp4"/>
-          </video>
-              <h1>{{i.captions}}</h1>
-              <h3>by {{i.username}} DATE :{{i.date}}</h3>
-              <h3>ID :{{i.id}}</h3>
-              <h3><a href="/videos/{{i.url_64encoding}}">LINK</a> </h3>
-          <br>
-          </div>
-          {% endfor %}
-
-
+    <link rel="stylesheet" href="{% static 'css/galleryStyle.css'%}" />
+  </head>
+  <body>
+    <div class="container">
+      {% for i in data %}
+      <ul>
+        <li>{{i.id}}</li>
+      </ul>
+      <div class="child">
+        <video controls="controls" width="500px" height="500px">
+          <source src="{{i.video.url}}" type="video/mp4" />
+        </video>
+        <h1>{{i.captions}}</h1>
+        <div>
+          <h3>By: {{i.username}}</h3>
+          <h3>Date :{{i.date}}</h3>
+          <h3>Id :{{i.id}}</h3>
+          <h3><a href="/videos/{{i.url_64encoding}}">Link to the video</a></h3>
+        </div>
+        <hr />
       </div>
-</body>
+      {% endfor %}
+    </div>
+  </body>
 </html>

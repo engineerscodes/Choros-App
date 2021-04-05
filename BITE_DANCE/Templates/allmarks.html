@@ -1,35 +1,34 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>MARKS -{{ user.username }}</title>
-</head>
-<body>
-       {% for i in marks%}
-    <div>
-        <h1>{{i.videoId}}</h1>
-        <h1>{{i.marks}}</h1>
-        <h3>{{i.date}}</h3>
-        <h4>Upload user-{{i.by_email}}</h4>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Marks | {{ user.username }}</title>
+    <link rel="stylesheet" href="{% static 'css/allmarksStyle.css'%}" />
+  </head>
+  <body>
+    <div class="container">
+      {% for i in marks%}
+      <div>
+        <h2>Id: {{i.videoId}}</h2>
+        <h2>Marks: {{i.marks}}</h2>
+        <label>Date uploaded: {{i.date}}</label><br />
+        <label>Uploaded user: {{i.by_email}}</label><br /><br />
         <a href="/videos/{{i.video_link}}" target="_blank">View</a>
-        <hr>
+        <hr />
+      </div>
 
-    </div>
-
-     {% endfor %}
-
-    <hr><hr>
-    {% for i in LeftOver%}
-    <div style="background-color: coral;">
-        <h1>{{i.captions}}</h1>
-        <h3>{{i.date}}</h3>
-        <h4>Upload user-{{i.username}}</h4>
+      {% endfor %}
+      <br />
+      {% for i in LeftOver%}
+      <div>
+        <h1>Caption: {{i.captions}}</h1>
+        <label>Date uploaded: {{i.date}}</label><br />
+        <label>Uploaded user: {{i.username}}</label><br /><br />
         <a href="/videos/{{i.url_64encoding}}" target="_blank">View</a>
-        <hr>
-
+        <hr />
+      </div>
     </div>
-
-     {% endfor %}
-
-</body>
+    {% endfor %}
+  </body>
 </html>

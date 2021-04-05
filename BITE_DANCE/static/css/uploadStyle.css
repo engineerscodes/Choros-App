@@ -1,0 +1,14 @@
+body {
+  background-color: #f5f5dc;
+}
+.container {
+  width: 20%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

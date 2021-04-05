@@ -1,0 +1,28 @@
+body {
+  background-color: #f5f5dc;
+}
+.container {
+  margin: 0 auto;
+  width: 50%;
+  padding: 10px;
+}
+label {
+  font-size: 20px;
+  color: #697069;
+}
+a:link,
+a:visited {
+  border-radius: 25px;
+  color: #f0ffff;
+  background-color: #1877f2;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+a:hover,
+a:active {
+  background-color: #255696;
+  color: white;
+}

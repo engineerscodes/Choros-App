@@ -129,6 +129,12 @@
           display: flex;
           justify-content: center;
           text-transform: uppercase;
+          margin-bottom: 100px;
+          
+      }
+      .messflex h4{
+           color: #000;
+           font-size: 24px;
       }
 
           .mod_marks_view {

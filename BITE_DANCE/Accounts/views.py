@@ -55,7 +55,7 @@ def login(request) :
                    return HttpResponse("<h1> Verfiy Mail </h1>")
                else :
                    auth.login(request,User)
-                   return HttpResponse("<h1> logged in </h1>")
+                   return redirect('/')
 
           else :
                messages.info(request, "Invalid userNAME  or Password ")
@@ -135,7 +135,7 @@ def AUTHUSERNAME(request,uidb64,token):
          user.is_active = True
          user.save()
 
-         messages.info(request,"VALIDATED UAER PLZ LOGIN ")
+         messages.info(request,"VALIDATED USER PLZ LOGIN ")
 
          return  redirect('/account/login')
 

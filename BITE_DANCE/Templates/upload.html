@@ -14,7 +14,11 @@
         <div class="right">
             <div><a href="/upload/"> UPLOAD VIDEO</a></div>
             <div><a href="/bitdance/moderator/"> MODERATION DETAILS</a> </div>
-            <div><a href="/bitdance/GodMode/">GOD MODE</a></div>
+           {% if user.is_staff %}
+           <div><a href="/bitdance/GodMode/">GOD MODE</a></div>
+           {% else %}
+           <div>LOGGED IN AS {{user}}</div>
+           {%endif%}
             <div><a href="/account/logout/"> LOG OUT </a> </div>
         </div>
     </div>

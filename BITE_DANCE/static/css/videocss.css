@@ -32,6 +32,11 @@
 
    }
 
+    .Header .right div a {
+        text-decoration: none;
+    }
+
+
    .VD {
        border-bottom: #d3d3d3 solid 3px;
        background-color: #f8f8f8;

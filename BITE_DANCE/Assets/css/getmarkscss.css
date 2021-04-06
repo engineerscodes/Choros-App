@@ -31,6 +31,10 @@
             width: 250px;
 
         }
+         .Header .right div a {
+             text-decoration: none;
+         }
+
 
         table {
             border-collapse: collapse;

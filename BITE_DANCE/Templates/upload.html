@@ -2,12 +2,122 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>BITE-DANCE UPLOAD</title>
+    <style>
+         * {
+         padding: 0;
+         margin: 0;
+         box-sizing: border-box;
+         color: rgb(255, 255, 255);
+         background: rgb(1, 6, 6);
+         }
+
+
+         .Header {
+         display: flex;
+         width: 100%;
+
+         justify-content: space-between;
+         height: 80px;
+         align-items: center;
+         }
+
+         .Header .right {
+         display: flex;
+         flex-direction: row;
+         justify-content: space-evenly;
+         align-items: flex-end;
+         text-align: center;
+         }
+
+         .Header .right div {
+         padding: 10px;
+         margin: 10px;
+         width: 250px;
+
+         }
+
+
+         .preview{
+             width: 100%;
+             display: flex;
+             justify-content: center;
+              flex-direction: column;
+         }
+
+        .preview div{
+            margin: 10px auto;
+        }
+         #video2{
+            margin: 15px auto;      
+            width: 300px;
+            height: 300px;
+         }
+
+         .NAVEEN{
+          
+            display: flex;
+            justify-content: center;
+           
+         }
+
+         .NAVEEN form{
+             display: flex;
+             flex-direction: column;
+             
+         }
+         .NAVEEN #id_captions{
+            margin: 15px auto;
+         }
+         .NAVEEN #video{
+         margin: 15px auto;
+         }
+         #video{
+              opacity: 0;
+              width: 0.1px;
+              height: 0.1px;
+              position: absolute;
+         }
+         .NAVEEN form p:nth-child(3) label {
+             margin: 10px 0;
+         display: block;
+         position: relative;
+         height: 40px;
+         display: flex;
+         background: #0099cc;
+         align-items: center;
+         justify-content: center;
+         color: #fff;
+         font-weight: bold;
+         cursor: pointer;
+         transition: transform .2s ease-out;
+         }
+    </style>
 </head>
 <body>
+    <div class="Header">
+        <div>
+            <h1>BITE DANCE</h1>
+        </div>
+        <div class="right">
+            <div>UPLOAD VIDEO</div>
+            <div>MODERATION DETAILS</div>
+            <div>GOD MODE</div>
+            <div>LOG OUT</div>
+        </div>
+    </div>
+     <div class="preview">
+         <div>
+             <h2>VIDEO PREVIEW </h2>
+         </div>
+         <video id="video2" controls="controls" src="" style="display: block ; visibility: hidden;">
+        </video>
+
+     </div>
+
    <div class="NAVEEN">
 
-       <form action="." method="post" enctype="multipart/form-data">
+       <form  method="post" enctype="multipart/form-data">
            {% csrf_token %}
            {{form.as_p}}
 
@@ -17,14 +127,11 @@
 
        </form>
 
-       <h2> <a href="/upload/videos/"> GO TO GALLERY</a> </h2>
    </div>
 
+   
 
-    <div>
-          <video id="video2" controls="controls" src=""></video>
-
-      </div>
+   
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -43,6 +150,7 @@
            file_Selected_file=file_Selected.files[0];
             var fileUrl = window.URL.createObjectURL(file_Selected_file);
             var obj=document.getElementById('video2');
+            obj.style.visibility="visible";
             obj.src=fileUrl;
 
         }

@@ -1,29 +1,38 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>all marks</title>
-</head>
-<style>
-table{
- border: 2px solid black;
- width:100%;
-}
-    th, td {
-  border-bottom: 5px solid #000;
-}
-tr:nth-child(even) {background-color: #f2f2f2;}
-</style>
-<body>
-    <div>
-         <table style="">
-             <tr>
 
-                 <td>CAPTIONS</td>
-                 <td> link </td>
-                 <td>marks</td>
-                 <td>USER</td>
+    <link rel="stylesheet" href="{% static 'css/getmarkscss.css' %}">
+</head>
+  
+
+<body>
+      <div class="Header">
+          <div>
+              <h1>BITE DANCE</h1>
+          </div>
+          <div class="right">
+              <div>UPLOAD VIDEO</div>
+              <div>MODERATION DETAILS</div>
+              <div>GOD MODE</div>
+              <div>LOG OUT</div>
+          </div>
+      </div>
+
+    <div>
+         <table class="blue">
+             <thead>
+             <tr>
+                 <th>CAPTIONS</th>
+                 <th> link </th>
+                 <th>marks</th>
+                 <th>USER</th>
              </tr>
+             </thead>
+             <tbody>
               {% for i in data %}
              <tr>
                  <td>{{i.captions}}</td>
@@ -33,6 +42,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 
              </tr>
              {% endfor %}
+             </tbody>
          </table>
     </div>
 </body>

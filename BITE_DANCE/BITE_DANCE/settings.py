@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'Accounts',
     'VIDEOSUPLOAD',
     'Moderator',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

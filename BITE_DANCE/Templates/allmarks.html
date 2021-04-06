@@ -1,35 +1,69 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>MARKS -{{ user.username }}</title>
+        <link rel="stylesheet" href="{% static 'css/getmarkscss.css' %}">
+        <link rel="stylesheet" href="{% static 'css/allmarkscss.css'%}">
 </head>
 <body>
-       {% for i in marks%}
-    <div>
-        <h1>{{i.videoId}}</h1>
-        <h1>{{i.marks}}</h1>
-        <h3>{{i.date}}</h3>
-        <h4>Upload user-{{i.by_email}}</h4>
-        <a href="/videos/{{i.video_link}}" target="_blank">View</a>
-        <hr>
-
+       
+    <div class="Header">
+        <div>
+            <h1>BITE DANCE</h1>
+        </div>
+        <div class="right">
+            <div>UPLOAD VIDEO</div>
+            <div>MODERATION DETAILS</div>
+            <div>GOD MODE</div>
+            <div>LOG OUT</div>
+        </div>
     </div>
 
-     {% endfor %}
+     <div class="category">
+                <form method="POST">
+                    {% csrf_token %}
+                
+                        <label for="vd">FILTER </label>
+                        <select id="vd" name="videos" >
+                            <option value="unseen"> Not verified</option>
+                            <option value="verified">verified</option>
+                        </select>
 
-    <hr><hr>
-    {% for i in LeftOver%}
-    <div style="background-color: coral;">
-        <h1>{{i.captions}}</h1>
-        <h3>{{i.date}}</h3>
-        <h4>Upload user-{{i.username}}</h4>
-        <a href="/videos/{{i.url_64encoding}}" target="_blank">View</a>
-        <hr>
+                </form>
+  </div>
+  <diV class="holder">
+      <h1></h1>
+  </diV>
+  
+  <div class="output">
+       <table class="blue">
+           <thead>
+               <tr>
+                   <th> link </th>
+                   <th id="UPD">UPLOADED DATE </th>
+                   <th>USER</th>
+               </tr>
+           </thead>
+           <tbody id="TB">
+               {% for i in LeftOver %}
+               <tr>
+                  
+                   <td><a href="/videos/{{i.url_64encoding}}" target="_blank">View</a></td>
+                    <td>{{i.date}}</td>
+                   <td>{{i.username}}</td>
 
-    </div>
+               </tr>
+               {% endfor %}
+           </tbody>
+       </table>
+  </div>
 
-     {% endfor %}
-
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" 
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+   
+ 
+  <script src="{% static 'js/allmarksjs.js' %}"></script>
 </body>
 </html>

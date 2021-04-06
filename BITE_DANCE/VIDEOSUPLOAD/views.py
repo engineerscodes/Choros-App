@@ -8,9 +8,12 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
 from django.utils.encoding import force_text, force_bytes
 from django.apps import apps
-
+from django.http import JsonResponse
 # from django.db.models import Q
-
+from .serializers import  videoUploadSerializer,MarksSerializer
+from rest_framework.response import Response
+from rest_framework.decorators import api_view, renderer_classes
+from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
 Mode = apps.get_model('Moderator', 'Mode')
 
 
@@ -148,9 +151,9 @@ def homePage(request):
         videos = videoUpload.objects.all()
         return render(request, 'HomePage.html', {'videos': videos})
 
-
 def Moderator(request):
     if request.method == 'GET':
+
         try:
             mode_team = Mode.objects.get(email=request.user.email)
         except Exception:
@@ -159,6 +162,7 @@ def Moderator(request):
         if mode_team is not None and mode_team.username == request.user.username and mode_team.mode_active:
             allmark_user = Marks.objects.filter(moderator_email=request.user.email)
             allmark_user_id = allmark_user.values_list('videoId')
+                #return JsonResponse({"allmarks":allmark_user})
             # print(allmark_user_id,"######################################")
             # print(allmark_user)
             # print(type(allmark_user))
@@ -170,6 +174,11 @@ def Moderator(request):
             return redirect('/videos')
         # return HttpResponse("MODERATIONS")
 
+
+
+
+
+
 def GodMode(request) :
     if request.method=='GET' and request.user.is_staff:
        Allvideo_mod=videoUpload.objects.order_by('Total_marks').reverse()
@@ -178,3 +187,26 @@ def GodMode(request) :
     if request.method =='GET':
         return redirect('/videos')
 
+
+@api_view(['GET', 'POST'])
+def ajaxModeration(request):
+    if request.method == 'GET':
+
+        try:
+            mode_team = Mode.objects.get(email=request.user.email)
+        except Exception:
+            mode_team = None
+
+        if mode_team is not None and mode_team.username == request.user.username and mode_team.mode_active:
+            allmark_user = Marks.objects.filter(moderator_email=request.user.email)
+            allmark_user_id = allmark_user.values_list('videoId')
+            if request.is_ajax():
+              if request.GET['videos']=="verified" :
+                cur_marked=MarksSerializer(allmark_user,many=True)
+                return Response({"data": cur_marked.data})
+              if  request.GET['videos']=="unseen":
+                left_out_video = videoUpload.objects.exclude(pk__in=allmark_user_id)
+                left_cur_marked =videoUploadSerializer(left_out_video,many=True)
+                return Response({"data":left_cur_marked.data})
+        else :
+            return Response ({"data":"Acess DENIED LOL"})

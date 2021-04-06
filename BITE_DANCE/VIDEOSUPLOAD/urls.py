@@ -8,6 +8,7 @@ urlpatterns = [
     path('videos/<uuid>',views.getSingleVideo,name="Filter Video"),
     path('',views.homePage,name="HOMEPAGE"),
     path('bitdance/moderator/',views.Moderator,name="Moderator's"),
-    path('bitdance/GodMode/',views.GodMode,name="Total Marks")
+    path('bitdance/GodMode/',views.GodMode,name="Total Marks"),
+    path('bitdance/moderator/ajax',views.ajaxModeration,name="GETMODEAJAX")
 
 ]

@@ -41,18 +41,15 @@
                   {% csrf_token %}
                   <div class="marks_mod">
                               <diV><label for="vd">MARKS </label></diV>
-                              <diV> <input type="number" name="video_marks" required min="0" id="vd" placeholder="THE MARKS WILL BE OVERRIDE"></diV>
+                              <diV> <input type="number" name="video_marks" required id="vd"
+                                    placeholder="THE MARKS WILL BE OVERRIDE"  min="0"></diV>
                  </div>
                   <diV id="btn"> <button type="submit">SUBMIT</button></diV>
                </form>
       </div>
         {% endif %}
 
-        <div class="messflex">
-              {% for mess in messages %}
-              <h4>{{mess}}</h4>
-              {% endfor %}
-        </div>
+     
         <div class="mod_marks_view">
              {% if user.is_authenticated %}
              {% if MODES  or user.is_staff %}
@@ -67,6 +64,12 @@
              {% endif %}
 
             </div>
+
+               <div class="messflex">
+                  {% for mess in messages %}
+                  <h4>{{mess}}</h4>
+                  {% endfor %}
+               </div>
 </body>
 </html>
 

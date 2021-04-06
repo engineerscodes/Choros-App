@@ -50,6 +50,8 @@ def PUTVD(request):
 
 
 def allVideos(request):
+    if (request.user.is_authenticated == False):
+        return redirect('/account/login')
     if request.method == 'GET':
         allmp4 = videoUpload.objects.all()
 
@@ -62,7 +64,10 @@ def allVideos(request):
         return render(request, 'gallery.html', {'data': allmp4})
 
 
+
 def getSingleVideo(request, uuid):
+    if (request.user.is_authenticated == False):
+        return redirect('/account/login')
     if request.method == 'GET':
         try:
             id = force_text(urlsafe_base64_decode(uuid))
@@ -148,10 +153,16 @@ clip.save_frame("thumbnail.jpg",t=0.10)'''
 
 def homePage(request):
     if request.method == 'GET':
+     if request.user.is_authenticated:
         videos = videoUpload.objects.all()
         return render(request, 'HomePage.html', {'videos': videos})
+     else :
+         return redirect('/account/login')
+
 
 def Moderator(request):
+    if (request.user.is_authenticated == False):
+        return redirect('/account/login')
     if request.method == 'GET':
 
         try:
@@ -180,6 +191,8 @@ def Moderator(request):
 
 
 def GodMode(request) :
+    if (request.user.is_authenticated == False):
+        return redirect('/account/login')
     if request.method=='GET' and request.user.is_staff:
        Allvideo_mod=videoUpload.objects.order_by('Total_marks').reverse()
 

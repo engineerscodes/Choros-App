@@ -1,0 +1,27 @@
+       .category {
+           display: flex;
+           justify-content: center;
+           padding: 10px auto;
+           background-color: rgb(1, 6, 6);
+       }
+
+       .category select,
+       .category label {
+           font-size: 24px;
+           color: hotpink;
+
+       }
+
+       .category select:hover {
+           color: #1ABC9C;
+       }
+
+       .category label:hover {
+           color: #1ABC9C;
+       }
+
+       .holder {
+           height: 20px;
+
+           background-color: rgb(1, 6, 6);
+       }

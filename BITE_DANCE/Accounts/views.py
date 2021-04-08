@@ -42,7 +42,12 @@ def login(request):
         username = request.POST['user-name']
         Password = request.POST['passwordcnf']
 
-        User = auth.authenticate(username=username, password=Password)
+        if User is not None:
+            if User.is_active == False:
+                return HttpResponse("<h1> Verfiy Mail </h1>")
+            else:
+                auth.login(request, User)
+                return redirect('/')
 
         if User is not None:
             if User.is_active == False:
@@ -119,7 +124,7 @@ def AUTHUSERNAME(request, uidb64, token):
         user.is_active = True
         user.save()
 
-        messages.info(request, "VALIDATED UAER PLZ LOGIN ")
+        messages.info(request, "VALIDATED USER PLZ LOGIN ")
 
         return redirect('/account/login')
 

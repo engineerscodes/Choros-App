@@ -1,0 +1,97 @@
+   * {
+       padding: 0;
+       margin: 0;
+       box-sizing: border-box;
+       color: rgb(255, 255, 255);
+       background: rgb(1, 6, 6);
+   }
+
+
+   .Header {
+       display: flex;
+       width: 100%;
+
+       justify-content: space-between;
+       height: 80px;
+       align-items: center;
+   }
+
+   .Header .right {
+       display: flex;
+       flex-direction: row;
+       justify-content: space-evenly;
+       align-items: flex-end;
+       text-align: center;
+   }
+
+   .Header .right div {
+       padding: 10px;
+       margin: 10px;
+       width: 250px;
+
+   }
+ .Header .right div a {
+     text-decoration: none;
+     color: white;
+ }
+
+
+   .preview {
+       width: 100%;
+       display: flex;
+       justify-content: center;
+       flex-direction: column;
+   }
+
+   .preview div {
+       margin: 10px auto;
+   }
+
+   #video2 {
+       margin: 15px auto;
+       width: 300px;
+       height: 300px;
+   }
+
+   .NAVEEN {
+
+       display: flex;
+       justify-content: center;
+
+   }
+
+   .NAVEEN form {
+       display: flex;
+       flex-direction: column;
+
+   }
+
+   .NAVEEN #id_captions {
+       margin: 15px auto;
+   }
+
+   .NAVEEN #video {
+       margin: 15px auto;
+   }
+
+   #video {
+       opacity: 0;
+       width: 0.1px;
+       height: 0.1px;
+       position: absolute;
+   }
+
+   .NAVEEN form p:nth-child(3) label {
+       margin: 10px 0;
+       display: block;
+       position: relative;
+       height: 40px;
+       display: flex;
+       background: #0099cc;
+       align-items: center;
+       justify-content: center;
+       color: #fff;
+       font-weight: bold;
+       cursor: pointer;
+       transition: transform .2s ease-out;
+   }

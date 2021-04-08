@@ -4,6 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>all marks</title>
+<<<<<<< HEAD
     <link rel="stylesheet" href="{% static 'css/allmarksStyle.css'%}" />
   </head>
   <style>
@@ -52,6 +53,52 @@
         </tr>
         {% endfor %}
       </table>
+=======
+
+    <link rel="stylesheet" href="{% static 'css/getmarkscss.css' %}">
+</head>
+  
+
+<body>
+      <div class="Header">
+          <div>
+              <h1><a href="/" style="text-decoration: none; color: white; padding: 10px;">BITE DANCE</a></h1>
+          </div>
+         <div class="right">
+             <div><a href="/upload/"> UPLOAD VIDEO</a></div>
+             <div><a href="/bitdance/moderator/"> MODERATION DETAILS</a> </div>
+             {% if user.is_staff %}
+             <div><a href="/bitdance/GodMode/">GOD MODE</a></div>
+             {% else %}
+             <div>LOGGED IN AS {{user}}</div>
+             {%endif%}
+             <div><a href="/account/logout/"> LOG OUT </a> </div>
+         </div>
+      </div>
+
+    <div>
+         <table class="blue">
+             <thead>
+             <tr>
+                 <th>CAPTIONS</th>
+                 <th> link </th>
+                 <th>marks</th>
+                 <th>USER</th>
+             </tr>
+             </thead>
+             <tbody>
+              {% for i in data %}
+             <tr>
+                 <td>{{i.captions}}</td>
+                 <td><a href="/videos/{{i.url_64encoding}}">LINK</a></td>
+                 <td>{{i.Total_marks}}</td>
+                 <td>{{i.username}}</td>
+
+             </tr>
+             {% endfor %}
+             </tbody>
+         </table>
+>>>>>>> f42d09f923615e65a7ae232f0c36e8108a86e418
     </div>
   </body>
 </html>

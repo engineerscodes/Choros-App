@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+<<<<<<< HEAD
   <head>
     <meta charset="UTF-8" />
     <title>Title</title>
@@ -21,6 +22,50 @@
         </ul>
       </nav>
     </header>
+=======
+<head>
+    <meta charset="UTF-8">
+    <title>ALL VIDEOS</title>
+    <link rel="stylesheet" href="{% static  'css/homepage.css' %}">
+</head>
+<body>
+
+
+            <div class="Header">
+                <div>
+                   <h1><a href="/" style="text-decoration: none; color: white; padding: 10px;">BITE DANCE</a></h1>
+                </div>
+               <div class="right">
+                   <div><a href="/upload/"> UPLOAD VIDEO</a></div>
+                   <div><a href="/bitdance/moderator/"> MODERATION DETAILS</a> </div>
+                  {% if user.is_staff %}
+                  <div><a href="/bitdance/GodMode/">GOD MODE</a></div>
+                  {% else %}
+                  <div>LOGGED IN AS {{user}}</div>
+                  {%endif%}
+                   <div><a href="/account/logout/"> LOG OUT </a> </div>
+               </div>
+            </div>
+
+            <div class="about">
+                <h1>BITE DANCE CLUB VIDEOS </h1>
+
+            </div>
+
+            <div class="vidoeGrid">
+                {% for i in data %}
+                <div class="vidoeDjango">
+                    <a href="/videos/{{i.url_64encoding}}"> 
+                    <video controls="controls" width="330px" height="200px">
+                            <source src="{{i.video.url}}" type="video/mp4" />
+                        </video></a>
+                    <h5 id="pad">{{i.captions}}</h5>
+                    <h5>by {{i.username}}</h5>
+                    <h5> DATE :{{i.date}}</h5>
+                </div>
+                {% endfor %}
+            </div>
+>>>>>>> f42d09f923615e65a7ae232f0c36e8108a86e418
 
     <div class="container">
       {% for i in data %}

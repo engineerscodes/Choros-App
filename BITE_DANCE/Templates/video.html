@@ -1,4 +1,5 @@
 {% load static %}
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,6 +11,109 @@
     <header class="site-header">
       <div class="site-identity">
         <h1><a href="#">Beat The Heat</a></h1>
+=======
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <title>{{data.captions}}</title>
+   <link rel="stylesheet" href="{% static 'css/videocss.css' %}">
+   <style>
+
+   </style>
+</head>
+
+<body>
+
+   <div class="Header">
+      <div>
+         <h1><a href="/" style="text-decoration: none; color: white; padding: 10px;">BITE DANCE</a></h1>
+      </div>
+      <div class="right">
+         <div><a href="/upload/"> UPLOAD VIDEO</a></div>
+         <div><a href="/bitdance/moderator/"> MODERATION DETAILS</a> </div>
+         {% if user.is_staff %}
+         <div><a href="/bitdance/GodMode/">GOD MODE</a></div>
+         {% else %}
+         <div>LOGGED IN AS {{user}}</div>
+         {%endif%}
+         <div><a href="/account/logout/"> LOG OUT </a> </div>
+
+      </div>
+   </div>
+
+   <div class="VD">
+      <video controls="controls" width="100%" height="450px" controlsList="nodownload">
+         <source src="{{data.video.url}}" type="video/mp4" />
+      </video>
+      <div class="vd_info">
+         <p>{{data.captions}}</p>
+         <h3>Uploaded by {{data.username}}</h3>
+         <h3>ON :{{data.date}}</h3>
+      </div>
+   </div>
+   <diV>
+      {% if  user.is_authenticated and MODES %}
+      <div>
+         <form method="post">
+            {% csrf_token %}
+            <div class="marks_mod">
+               <diV><label for="vd">MARKS </label></diV>
+               <diV> <input type="number" name="video_marks" required id="vd" placeholder="THE MARKS WILL BE OVERRIDE"
+                     min="0"></diV>
+            </div>
+            <diV id="btn"> <button type="submit">SUBMIT</button></diV>
+         </form>
+      </div>
+      {% endif %}
+
+
+      <div class="mod_marks_view">
+         {% if user.is_authenticated %}
+         {% if MODES  or user.is_staff %}
+         <div class="bgmarks">
+            <ol>
+               {% for j in Marks %}
+               <li>{{j.marks}} by-{{j.moderator_email}}</li>
+               {% endfor %}
+            </ol>
+         </div>
+         {% endif %}
+         {% endif %}
+
+      </div>
+
+      <div class="messflex">
+         {% for mess in messages %}
+         <h4>{{mess}}</h4>
+         {% endfor %}
+      </div>
+</body>
+
+</html>
+
+<!--  <div style="display :flex; flex-direction:column; justify-content: center;">
+          <div>
+          <video controls="controls"   width="500px" height="500px">
+             <source src="{{data.video.url}}"  type="video/mp4"/>
+          </video>
+              <h1>{{data.captions}}</h1>
+              <h3>by {{data.username}} DATE :{{data.date}}</h3>
+              <h3>ID :{{data.id}}</h3>
+          <br>
+          </div>
+          {% if  user.is_authenticated and MODES %}
+           <form  method="post">
+             {% csrf_token %}
+             marks: <input type="number" name="video_marks" required min="0">
+            <button type="submit">SUBMIT</button>
+           </form>
+           {% endif %}
+
+        <h1>THE MARKS WILL BE OVERRIDE IF RECORD EXIST</h1>
+>>>>>>> f42d09f923615e65a7ae232f0c36e8108a86e418
       </div>
       <nav class="site-navigation">
         <ul class="nav">
@@ -33,6 +137,7 @@
         <label>Id:{{data.id}}</label><br />
         <br />
       </div>
+<<<<<<< HEAD
       {% if user.is_authenticated and MODES %}
       <form method="post">
         {% csrf_token %} marks:
@@ -56,3 +161,8 @@
     {% endif %} {% endif %}
   </body>
 </html>
+=======
+         {% endif %}
+         {% endif %}
+     -->
+>>>>>>> f42d09f923615e65a7ae232f0c36e8108a86e418

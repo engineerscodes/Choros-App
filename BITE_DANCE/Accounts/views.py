@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import  auth,User
 from django.contrib import messages
 from django.views import View
+import re
 
 from .Token_Gen import Token_generator
 from django.core.mail import send_mail
@@ -73,6 +74,12 @@ def reg(request) :
           password =request.POST['password_cfn']
           email =request.POST['emails']
 
+          if re.search('^[a-zA-z]+\.[0-9a-zA-Z]+@vitap\.ac\.in$',email) is  None :
+              print(re.search('^[a-zA-z]+\.[0-9a-zA-Z]+@vitap\.ac\.in$',email),"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+              messages.info(request, "USE VITAP MAIL ONLY ")
+              return redirect('/account/reg/')
+
+
           if User.objects.filter(username=userName).exists():
                  messages.info(request," UserName is not Available")
                  return redirect('/account/reg/')
@@ -80,7 +87,7 @@ def reg(request) :
               messages.info(request, " MAIL IS ALREADY REG")
               return redirect('/account/reg/')
 
-          else :
+          if re.search('^[a-zA-z]+\.[0-9a-zA-Z]+@vitap\.ac\.in$',email) is not  None  and User.objects.filter(username=userName).exists() ==False:
 
                 user=User.objects.create_user(username=userName,password=password,email=email)
                 user.is_active=False
@@ -112,7 +119,7 @@ def reg(request) :
 
 
 
-                messages.info(request, "DONE ")
+                messages.info(request, " plz verfiy your email ")
                 return redirect('/account/reg/')
 
 

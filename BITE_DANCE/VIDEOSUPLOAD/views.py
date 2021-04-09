@@ -181,8 +181,10 @@ def Moderator(request):
             # print(left_out_video,"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
 
             return render(request, 'allmarks.html', {'marks': allmark_user, 'LeftOver': left_out_video})
-        else:
+        if request.user.is_staff:
             return redirect('/videos')
+        else :
+            return redirect('/')
         # return HttpResponse("MODERATIONS")
 
 

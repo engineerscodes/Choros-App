@@ -1,100 +1,192 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>BITE-DANCE UPLOAD</title>
     <link rel="stylesheet" href="{% static 'css/uploadcss.css' %}">
+    <style>
+        .progress-bar {
+            width: 250px;
+            height: 40px;
+            border: 4px solid blue;
+            background-color: rgb(0, 0, 0);
+        }
+
+        .progress-bar-filler {
+
+            height: 100%;
+            width: 0%;
+            background-color: lightblue;
+            display: flex;
+            align-items: center;
+            transition: width 0.25s;
+
+
+        }
+
+        .progress-bar-text {
+            margin-left: 10px;
+            font-weight: bold;
+            background-color: lightblue;
+            color: lightcoral;
+        }
+    </style>
 </head>
+
 <body>
     <div class="Header">
         <div>
-           <h1><a href="/" style="text-decoration: none; color: white; padding: 10px;">BITE DANCE</a></h1>
+            <h1><a href="/" style="text-decoration: none; color: white; padding: 10px;">BITE DANCE</a></h1>
         </div>
         <div class="right">
             <div><a href="/upload/"> UPLOAD VIDEO</a></div>
             <div><a href="/bitdance/moderator/"> MODERATION DETAILS</a> </div>
-           {% if user.is_staff %}
-           <div><a href="/bitdance/GodMode/">GOD MODE</a></div>
-           {% else %}
-           <div>LOGGED IN AS {{user}}</div>
-           {%endif%}
+            {% if user.is_staff %}
+            <div><a href="/bitdance/GodMode/">GOD MODE</a></div>
+            {% else %}
+            <div>LOGGED IN AS {{user}}</div>
+            {%endif%}
             <div><a href="/account/logout/"> LOG OUT </a> </div>
         </div>
     </div>
-     <div class="preview">
-         <div>
-             <h2>VIDEO PREVIEW </h2>
-         </div>
-         <video id="video2" controls="controls" src="" style="display: block ; visibility: hidden;">
+    <div class="preview">
+        <div>
+            <h2>VIDEO PREVIEW </h2>
+        </div>
+        <video id="video2" controls="controls" src="" style="display: block ; visibility: hidden;">
         </video>
 
-     </div>
+    </div>
 
-   <div class="NAVEEN">
+    <div class="NAVEEN">
 
-       <form  method="post" enctype="multipart/form-data">
-           {% csrf_token %}
-           {{form.as_p}}
+        <form id="videoform" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_p}}
 
-           <input type="url" id="output2" name="thumbIMG" style="display:none;">
+            <input type="url" id="output2" name="thumbIMG" style="display:none;">
 
-           <button type="submit" id="capture">UPLOAD VIDEO</button>
+            <button type="submit" id="capture">UPLOAD VIDEO</button>
+            <button type="button" id="ajaxcall" onclick="submitVDFORM()">CLICK ME</button>
+        </form>
 
-       </form>
+    </div>
+    <div class="progress-bar" id="progressbar">
 
-   </div>
+        <div class="progress-bar-filler">
+            <span class="progress-bar-text"> 0% </span>
+        </div>
 
-   
-
-   
+    </div>
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
- <script>
-       $(document).ready(function(){
-            $('#video').change(function(){
-               call();
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $('#video').change(function () {
+                call();
             });
         });
-         var video;
-         var scale =1;
+        var video;
+        var scale = 1;
 
-        function call()
-        {
-           var file_Selected=document.getElementById('video');
-           file_Selected_file=file_Selected.files[0];
+        function call() {
+            var file_Selected = document.getElementById('video');
+            file_Selected_file = file_Selected.files[0];
             var fileUrl = window.URL.createObjectURL(file_Selected_file);
-            var obj=document.getElementById('video2');
-            obj.style.visibility="visible";
-            obj.src=fileUrl;
+            var obj = document.getElementById('video2');
+            obj.style.visibility = "visible";
+            obj.src = fileUrl;
 
         }
-          var initialize = function() {
+        var initialize = function () {
 
-        $("#capture").click(captureImage);
-         };
-
-
-         var captureImage = function() {
+            $("#capture").click(captureImage);
+        };
 
 
-        video  = $('#video2').get(0);
-        var canvas = document.createElement("canvas");
-        canvas.width = video.videoWidth * scale;
-        canvas.height = video.videoHeight * scale;
-
-        canvas.getContext('2d')
-              .drawImage(video, 0, 0, canvas.width, canvas.height);
-        var out=document.getElementById('output2')
-        out.value= canvas.toDataURL();
-
-    };
-    initialize();
+        var captureImage = function () {
 
 
-</script>
+            video = $('#video2').get(0);
+            var canvas = document.createElement("canvas");
+            canvas.width = video.videoWidth * scale;
+            canvas.height = video.videoHeight * scale;
+
+            canvas.getContext('2d')
+                .drawImage(video, 0, 0, canvas.width, canvas.height);
+            var out = document.getElementById('output2')
+            out.value = canvas.toDataURL();
+
+        };
+        initialize();
+
+        /* 
+          const file_vd=document.getElementById('video');
+          const progress_bar=document.getElementsByClassName('progress-bar-filler')[0];
+
+          const progress_text=document.getElementsByClassName('progress-bar-text')[0];
+         
+          function progress(e)
+          {
+                 e.preventDefault();
+          }*/
+
+          
+           function submitVDFORM(){
+            
+            console.log("Dddddddddddddd")
+            let vdform=document.getElementById('videoform');
+            var token = $("input[name=csrfmiddlewaretoken]").val();
+            let caption=document.getElementById('id_captions').value;
+            let vd_file=document.getElementById('video');
+            //let file_Selecteds=document.getElementById('video');
+            let thubimg=document.getElementById('output2')
+            //var datas=new FormData();
+            //datas.append('video',vd_file.files[0])
+            //datas.append('captions',caption)
+            //datas.append('thumbIMG',thubimg)
+            console.log(caption)
+             console.log(token);
+              $.ajax({
+              
+              type: "POST",
+              url: "/upload/ajax",
+              cache: false,
+              //contentType: 'multipart/form-data',
+              headers:{"X-CSRFToken": token},
+              processData: false,
+              data: {
+                  video :vd_file.files[0],
+                  captions :caption,
+                  thumbIMG:thubimg
+              },
+              success: function (respone) {
+              console.log("HELLO CALL ME ")
+              }
+              }); 
+
+              
+            }
+         
+
+      
+           
+            
+          
+          
+           
+           
+        
+    </script>
 
 
 </body>
+
 </html>

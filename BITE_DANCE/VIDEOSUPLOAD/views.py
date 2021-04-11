@@ -1,52 +1,57 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import HttpResponse
+from rest_framework import status
+
 from .forms import vd_form
 from .models import videoUpload, Marks
 from datetime import date
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-
+from rest_framework.views import APIView
 from django.utils.encoding import force_text, force_bytes
 from django.apps import apps
 from django.http import JsonResponse
 # from django.db.models import Q
-from .serializers import  videoUploadSerializer,MarksSerializer
+from .serializers import  videoUploadSerializer,MarksSerializer,SubmitVideo
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, renderer_classes
 from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
 Mode = apps.get_model('Moderator', 'Mode')
+from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
 
 
 def PUTVD(request):
-    if request.method == 'POST':
-        user = request.user
-        # request.POST.get('THUMBNAILIMAGE',False)
-        if (user.is_authenticated):
-            form = vd_form(data=request.POST, files=request.FILES)
-            # print(user.is_authenticated)
-            if form.is_valid():
-                new_form = form.save(commit=False)
-                new_form.username = user.email
-                new_form.date = date.today().strftime('%Y-%m-%d')
-                new_form.save()
-                video = videoUpload.objects.get(pk=new_form.id)
-                video.url_64encoding = urlsafe_base64_encode(force_bytes(new_form.id))
-                video.thumbnail = request.POST['thumbIMG']
-                video.save()
-
-                return HttpResponse("DONE UPLOADED ")
-        if (user.is_authenticated == False):
-            return redirect('/account/login')
 
 
-
-    else:
+    if request.method =="GET":
         user = request.user
         if (user.is_authenticated == False):
             return redirect('/account/login')
 
         form = vd_form()
     return render(request, "upload.html", {"form": form})
+
+    '''if request.method == 'POST':
+            user = request.user
+            # request.POST.get('THUMBNAILIMAGE',False)
+            if (user.is_authenticated):
+                form = vd_form(data=request.POST, files=request.FILES)
+                # print(user.is_authenticated)
+                if form.is_valid():
+                    new_form = form.save(commit=False)
+                    new_form.username = user.email
+                    new_form.date = date.today().strftime('%Y-%m-%d')
+                    new_form.save()
+                    video = videoUpload.objects.get(pk=new_form.id)
+                    video.url_64encoding = urlsafe_base64_encode(force_bytes(new_form.id))
+                    video.thumbnail = request.POST['thumbIMG']
+                    video.save()
+
+                    return HttpResponse("DONE UPLOADED ")
+            if (user.is_authenticated == False):
+                return redirect('/account/login')
+
+    '''
 
 
 def allVideos(request):
@@ -203,7 +208,7 @@ def GodMode(request) :
         return redirect('/videos')
 
 
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 def ajaxModeration(request):
     if request.method == 'GET':
 
@@ -225,3 +230,38 @@ def ajaxModeration(request):
                 return Response({"data":left_cur_marked.data})
         else :
             return Response ({"data":"Acess DENIED LOL"})
+
+
+def ajaxsubmitVideo2(request):
+
+    if request.method=='GET':
+
+        form = vd_form()
+        return render(request,'testgetvdieo.html',{"form": form})
+    if request.method=='POST':
+        form = vd_form()
+        return render(request,'testgetvdieo.html',{"form": form})
+
+
+class  ajaxsubmitVideo(APIView):
+   parser_classes = [MultiPartParser, FormParser,FileUploadParser]
+
+   def post(self, request, format=None):
+
+       print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+       serializerss = SubmitVideo(data=request.data)
+       #print(request.POST.get('captions'))
+       if serializerss.is_valid():
+
+           #serializerss.save(username=request.user.email,date= date.today().strftime('%Y-%m-%d'))
+           #print(videoUpload.objects.filter(pk=serializerss))
+
+
+
+
+           return Response(serializerss.data, status=status.HTTP_200_OK)
+       else:
+           return Response(serializerss.errors, status=status.HTTP_200_OK)
+
+
+

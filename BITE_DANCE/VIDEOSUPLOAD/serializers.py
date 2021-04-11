@@ -12,3 +12,10 @@ class videoUploadSerializer(serializers.ModelSerializer):
         model= videoUpload
         #fields="__all__"
         fields=('url_64encoding','date','username')
+
+class SubmitVideo(serializers.ModelSerializer) :
+
+    class Meta :
+        model=videoUpload
+        fields=('thumbnail','video','captions')
+        extra_kwargs = {'username': {'required': False}}

@@ -189,10 +189,12 @@ def getcontent(request):
 
     if request.method =='GET':
         if request.is_ajax() and request.user.is_authenticated:
-            allcontent = videoUpload.objects.all()
+            allcontent = videoUpload.objects.order_by('date').reverse()
             videofile= VDContent(allcontent,many=True)
 
             return Response({"data":videofile.data})
+        else :
+            return Response("PLZ AUTHENTICATE AND CALL MUST BE AJAX", status=status.HTTP_400_BAD_REQUEST)
 
 #HOMEPAGE start ENDS
 

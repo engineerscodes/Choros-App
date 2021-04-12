@@ -34,6 +34,6 @@ $.ajax({
     }
   },
   error: function (error) {
-   
+    if (error.status == 400) window.location = "/account/login";
   },
 });

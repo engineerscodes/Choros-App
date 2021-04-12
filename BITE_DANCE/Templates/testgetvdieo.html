@@ -93,8 +93,6 @@
             });
         });
         var video;
-        var scale = 1;
-
         function call() {
             var file_Selected = document.getElementById('video');
             file_Selected_file = file_Selected.files[0];
@@ -115,8 +113,8 @@
 
             video = $('#video2').get(0);
             var canvas = document.createElement("canvas");
-            canvas.width = video.videoWidth * scale;
-            canvas.height = video.videoHeight * scale;
+            canvas.width = 330
+            canvas.height = 200
 
             canvas.getContext('2d')
                 .drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -140,8 +138,6 @@
 
       function submitVDFORM(e){
             e.preventDefault();
-
-            console.log("Dddddddddddddd")
             let vdform = document.getElementById('videoform');
             var token = $("input[name=csrfmiddlewaretoken]").val();
             let caption = document.getElementById('id_captions').value;
@@ -153,9 +149,7 @@
             formsdata.append('captions',caption)
             formsdata.append('video',vd_file.files[0])
             formsdata.append('thumbnail',thubimg)
-             
-            console.log(caption)
-            console.log(token);
+            console.log(thubimg)
             $.ajax({
 
                 type: "POST",

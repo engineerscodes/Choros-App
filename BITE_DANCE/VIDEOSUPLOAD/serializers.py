@@ -18,4 +18,4 @@ class SubmitVideo(serializers.ModelSerializer) :
     class Meta :
         model=videoUpload
         fields=('thumbnail','video','captions')
-        extra_kwargs = {'username': {'required': False}}
+        #extra_kwargs = {'username': {'required': False}}

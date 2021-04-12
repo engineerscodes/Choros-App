@@ -62,14 +62,13 @@
 
     <div class="NAVEEN">
 
-        <form id="videoform" method="post" enctype="multipart/form-data">
+        <form id="videoform" method="post" enctype="multipart/form-data" onsubmit="return submitVDFORM(event)">
             {% csrf_token %}
             {{form.as_p}}
 
             <input type="url" id="output2" name="thumbIMG" style="display:none;">
 
             <button type="submit" id="capture">UPLOAD VIDEO</button>
-            <button type="button" id="ajaxcall" onclick="submitVDFORM()">CLICK ME</button>
         </form>
 
     </div>
@@ -94,7 +93,6 @@
             });
         });
         var video;
-        var scale = 1;
 
         function call() {
             var file_Selected = document.getElementById('video');
@@ -116,8 +114,8 @@
 
             video = $('#video2').get(0);
             var canvas = document.createElement("canvas");
-            canvas.width = video.videoWidth * scale;
-            canvas.height = video.videoHeight * scale;
+            canvas.width = 330
+            canvas.height = 200
 
             canvas.getContext('2d')
                 .drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -127,63 +125,82 @@
         };
         initialize();
 
-        /* 
+        
           const file_vd=document.getElementById('video');
           const progress_bar=document.getElementsByClassName('progress-bar-filler')[0];
 
           const progress_text=document.getElementsByClassName('progress-bar-text')[0];
          
-          function progress(e)
-          {
-                 e.preventDefault();
-          }*/
 
-          
-           function submitVDFORM(){
-            
-            console.log("Dddddddddddddd")
-            let vdform=document.getElementById('videoform');
+        function submitVDFORM(e) {
+            e.preventDefault();
+            let vdform = document.getElementById('videoform');
             var token = $("input[name=csrfmiddlewaretoken]").val();
-            let caption=document.getElementById('id_captions').value;
-            let vd_file=document.getElementById('video');
+            let caption = document.getElementById('id_captions').value;
+            let vd_file = document.getElementById('video');
             //let file_Selecteds=document.getElementById('video');
-            let thubimg=document.getElementById('output2')
-            //var datas=new FormData();
-            //datas.append('video',vd_file.files[0])
-            //datas.append('captions',caption)
-            //datas.append('thumbIMG',thubimg)
-            console.log(caption)
-             console.log(token);
-              $.ajax({
-              
-              type: "POST",
-              url: "/upload/ajax",
-              cache: false,
-              //contentType: 'multipart/form-data',
-              headers:{"X-CSRFToken": token},
-              processData: false,
-              data: {
-                  video :vd_file.files[0],
-                  captions :caption,
-                  thumbIMG:thubimg
-              },
-              success: function (respone) {
-              console.log("HELLO CALL ME ")
-              }
-              }); 
+            let thubimg = document.getElementById('output2').value
+            let formsdata = new FormData();
+            formsdata.append('csrfmiddlewaretoken', token)
+            formsdata.append('captions', caption)
+            formsdata.append('video', vd_file.files[0])
+            formsdata.append('thumbnail', thubimg)
+           
+            formTask=$.ajax({
+                 xhr: function() 
+                 {
+                        var xhr = new window.XMLHttpRequest();
+                        xhr.upload.addEventListener("progress", function(evt) {
+                            let  percentComplete=0;
+                            if (evt.lengthComputable) {
+                                percentComplete = (evt.loaded / evt.total) * 100;
+                                 console.log(percentComplete);
+                            }
+                            else
+                              percentComplete=0;
 
-              
-            }
-         
+                            progress_bar.style.width=percentComplete.toFixed(2)+'%';
+                            progress_text.textContent=percentComplete.toFixed(1)+'%';
 
-      
-           
-            
+
+
+
+                    }, false);
+                    return xhr;
+                 },
+       
+                type: "POST",
+                url: "/upload/ajax",
+
+                //contentType: 'multipart/form-data',
+
+                enctype: 'multipart/form-data',
+                data: formsdata,
+                success: function (respone) {
+                  alert(" FILE UPLOADED ")
+                  
+                },
+                progress:function(e)
+                {
+                   call=call+5;
+                },
+                error: function (error) {
+                    alert(error.responseJSON.video)
+
+                },
+               
+                cache: false,
+                contentType: false,
+                processData: false,
+            });
           
-          
-           
-           
-        
+            console.log(call)
+
+            return false;
+
+        }
+
+       
     </script>
 
 

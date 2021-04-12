@@ -12,5 +12,5 @@ urlpatterns = [
     path('bitdance/GodMode/',views.GodMode,name="Total Marks"),
     path('bitdance/moderator/ajax',views.ajaxModeration,name="GETMODEAJAX"),
     path('upload/ajax',ajaxsubmitVideo.as_view(),name="upload vidoe"),
-    path('upload/ajax2', views.ajaxsubmitVideo2, name="GET VIDEO"),
+    #path('upload/ajax2', views.ajaxsubmitVideo2, name="GET VIDEO"),
 ]

@@ -31,28 +31,6 @@ def PUTVD(request):
         form = vd_form()
     return render(request, "upload.html", {"form": form})
 
-    '''if request.method == 'POST':
-            user = request.user
-            # request.POST.get('THUMBNAILIMAGE',False)
-            if (user.is_authenticated):
-                form = vd_form(data=request.POST, files=request.FILES)
-                # print(user.is_authenticated)
-                if form.is_valid():
-                    new_form = form.save(commit=False)
-                    new_form.username = user.email
-                    new_form.date = date.today().strftime('%Y-%m-%d')
-                    new_form.save()
-                    video = videoUpload.objects.get(pk=new_form.id)
-                    video.url_64encoding = urlsafe_base64_encode(force_bytes(new_form.id))
-                    video.thumbnail = request.POST['thumbIMG']
-                    video.save()
-
-                    return HttpResponse("DONE UPLOADED ")
-            if (user.is_authenticated == False):
-                return redirect('/account/login')
-
-    '''
-
 
 def allVideos(request):
     if (request.user.is_authenticated == False):
@@ -232,15 +210,7 @@ def ajaxModeration(request):
             return Response ({"data":"Acess DENIED LOL"})
 
 
-def ajaxsubmitVideo2(request):
 
-    if request.method=='GET':
-
-        form = vd_form()
-        return render(request,'testgetvdieo.html',{"form": form})
-    if request.method=='POST':
-        form = vd_form()
-        return render(request,'testgetvdieo.html',{"form": form})
 
 
 class  ajaxsubmitVideo(APIView):
@@ -248,20 +218,31 @@ class  ajaxsubmitVideo(APIView):
 
    def post(self, request, format=None):
 
-       print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
        serializerss = SubmitVideo(data=request.data)
        #print(request.POST.get('captions'))
-       if serializerss.is_valid():
 
+       if serializerss.is_valid():
+           #print(serializerss.validated_data[''])
+
+           form = vd_form(data=request.POST, files=request.FILES)
+           if form.is_valid():
+               new_form = form.save(commit=False)
+               new_form.username =request.user.email
+               new_form.date = date.today().strftime('%Y-%m-%d')
+               new_form.save()
+               video = videoUpload.objects.get(pk=new_form.id)
+               video.url_64encoding = urlsafe_base64_encode(force_bytes(new_form.id))
+               video.thumbnail = serializerss.validated_data['thumbnail']
+               video.save()
            #serializerss.save(username=request.user.email,date= date.today().strftime('%Y-%m-%d'))
            #print(videoUpload.objects.filter(pk=serializerss))
 
 
 
 
-           return Response(serializerss.data, status=status.HTTP_200_OK)
+           return Response("VIDEO SUMBITTED", status=status.HTTP_200_OK)
        else:
-           return Response(serializerss.errors, status=status.HTTP_200_OK)
+           return Response(serializerss.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 

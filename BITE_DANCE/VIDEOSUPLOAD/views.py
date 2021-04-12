@@ -66,7 +66,7 @@ class  ajaxsubmitVideo(APIView):
 
 #upload page end
 
-#HOMEPAGE start here
+
 def allVideos(request):
     if (request.user.is_authenticated == False):
         return redirect('/account/login')
@@ -82,15 +82,6 @@ def allVideos(request):
         return render(request, 'gallery.html', {'data': allmp4})
 
 
-@api_view(['GET'])
-def getcontent(request):
-
-    if request.method =='GET':
-        if request.is_ajax() and request.user.is_authenticated:
-            allcontent = videoUpload.objects.all()
-            videofile= VDContent(allcontent,many=True)
-
-            return Response({"data":videofile.data})
 
 
 
@@ -183,15 +174,27 @@ clip = VideoFileClip("example.mp4")
 clip=clip.resize(width=800)
 clip.save_frame("thumbnail.jpg",t=0.10)'''
 
-
+#HOMEPAGE start here
 def homePage(request):
     if request.method == 'GET':
      if request.user.is_authenticated:
         videos = videoUpload.objects.all()
-        return render(request, 'HomePage.html', {'videos': videos})
+        return render(request, 'HomePage.html')
      else :
          return redirect('/account/login')
 
+
+@api_view(['GET'])
+def getcontent(request):
+
+    if request.method =='GET':
+        if request.is_ajax() and request.user.is_authenticated:
+            allcontent = videoUpload.objects.all()
+            videofile= VDContent(allcontent,many=True)
+
+            return Response({"data":videofile.data})
+
+#HOMEPAGE start ENDS
 
 def Moderator(request):
     if (request.user.is_authenticated == False):

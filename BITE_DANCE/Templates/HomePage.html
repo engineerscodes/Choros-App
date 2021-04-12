@@ -32,16 +32,13 @@
 
     </div>
 
-    <div class="vidoeGrid">
-        {% for i in videos %}
-        <div class="vidoeDjango">
-            <a  href="/videos/{{i.url_64encoding}}"><img src="{{i.thumbnail}}" width="330px" height="200px"></a>
-            <h5 id="pad">{{i.captions}}</h5>
-            <h5>by {{i.username}}</h5>
-            <h5> DATE :{{i.date}}</h5>
-        </div>
-        {% endfor %}
-    </div>
+        <div class="vidoeGrid">
+         
+             
 
+        </div>
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+      <script src="{% static 'js/HomePagesjs.js' %}"></script>
 </body>
 </html>

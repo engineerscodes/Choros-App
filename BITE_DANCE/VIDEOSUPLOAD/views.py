@@ -12,7 +12,7 @@ from django.utils.encoding import force_text, force_bytes
 from django.apps import apps
 from django.http import JsonResponse
 # from django.db.models import Q
-from .serializers import  videoUploadSerializer,MarksSerializer,SubmitVideo
+from .serializers import  videoUploadSerializer,MarksSerializer,SubmitVideo,VDContent
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, renderer_classes
 from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
@@ -29,13 +29,17 @@ def PUTVD(request):
             return redirect('/account/login')
 
         form = vd_form()
-    return render(request, "upload.html", {"form": form})
+        return render(request, "upload.html", {"form": form})
+    else :
+        return redirect('/account/login')
 
 class  ajaxsubmitVideo(APIView):
-   parser_classes = [MultiPartParser, FormParser,FileUploadParser]
+ parser_classes = [MultiPartParser, FormParser,FileUploadParser]
 
-   def post(self, request, format=None):
+ def post(self, request, format=None):
 
+   user = request.user
+   if (user.is_authenticated):
        serializerss = SubmitVideo(data=request.data)
        #print(request.POST.get('captions'))
 
@@ -52,20 +56,17 @@ class  ajaxsubmitVideo(APIView):
                video.url_64encoding = urlsafe_base64_encode(force_bytes(new_form.id))
                video.thumbnail = serializerss.validated_data['thumbnail']
                video.save()
-           #serializerss.save(username=request.user.email,date= date.today().strftime('%Y-%m-%d'))
-           #print(videoUpload.objects.filter(pk=serializerss))
-
-
-
-
+               #serializerss.save(username=request.user.email,date= date.today().strftime('%Y-%m-%d'))
+               #print(videoUpload.objects.filter(pk=serializerss))
            return Response("VIDEO SUMBITTED", status=status.HTTP_200_OK)
        else:
            return Response(serializerss.errors, status=status.HTTP_400_BAD_REQUEST)
-
+   else :
+       return Response(data="access denied",status=status.HTTP_400_BAD_REQUEST)
 
 #upload page end
 
-
+#HOMEPAGE start here
 def allVideos(request):
     if (request.user.is_authenticated == False):
         return redirect('/account/login')
@@ -79,6 +80,21 @@ def allVideos(request):
         # video.save()
 
         return render(request, 'gallery.html', {'data': allmp4})
+
+
+@api_view(['GET'])
+def getcontent(request):
+
+    if request.method =='GET':
+        if request.is_ajax() and request.user.is_authenticated:
+            allcontent = videoUpload.objects.all()
+            videofile= VDContent(allcontent,many=True)
+
+            return Response({"data":videofile.data})
+
+
+
+
 
 
 
@@ -241,7 +257,7 @@ def ajaxModeration(request):
                 left_cur_marked =videoUploadSerializer(left_out_video,many=True)
                 return Response({"data":left_cur_marked.data})
         else :
-            return Response ({"data":"Acess DENIED LOL"})
+            return Response ({"data":"Acess DENIED "},status=status.HTTP_400_BAD_REQUEST)
 
 
 

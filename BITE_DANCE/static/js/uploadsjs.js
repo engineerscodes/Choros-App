@@ -88,7 +88,5 @@ function submitVDFORM(e) {
     processData: false,
   });
 
-  console.log(call);
-
   return false;
 }

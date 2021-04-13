@@ -1,8 +1,12 @@
 let gridvd = document.getElementsByClassName("vidoeGrid")[0];
-
+let count = 0;
+function getVideos(){
 $.ajax({
   type: "GET",
   url: "getcontent/",
+  data: {
+    vdreq: ++count
+  },
   success: function (respone) {
     let responeObject = respone.data;
     for (i in responeObject) {
@@ -33,7 +37,20 @@ $.ajax({
       gridvd.appendChild(divT);
     }
   },
-  error: function (error) {
-    if (error.status == 400) window.location = "/account/login";
-  },
+  error: function (error) {},
+});
+}
+
+getVideos();
+
+
+window.addEventListener('scroll',()=>{
+     const { scrollTop, clientHeight, scrollHeight }=document.documentElement;
+     console.log("SUM "+(scrollTop + clientHeight));
+     console.log("SCROLL HEIGHT"+scrollHeight)
+   if (scrollTop +clientHeight >= scrollHeight-50) {
+     console.log("Lazy Load")
+     getVideos();
+   }
+
 });

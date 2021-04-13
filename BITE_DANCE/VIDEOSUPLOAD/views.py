@@ -189,9 +189,15 @@ def getcontent(request):
 
     if request.method =='GET':
         if request.is_ajax() and request.user.is_authenticated:
-            allcontent = videoUpload.objects.order_by('date').reverse()
+            try :
+              index=int(request.GET.get('vdreq'))
+            except:
+                return Response("EXCEPTION HAPPENDED", status=status.HTTP_400_BAD_REQUEST)
+            #Total=videoUpload.objects.all().count()
+            #print(Total)
+            #print(index*6)
+            allcontent = videoUpload.objects.order_by('date').reverse()[6*(index-1):6*index]
             videofile= VDContent(allcontent,many=True)
-
             return Response({"data":videofile.data})
         else :
             return Response("PLZ AUTHENTICATE AND CALL MUST BE AJAX", status=status.HTTP_400_BAD_REQUEST)

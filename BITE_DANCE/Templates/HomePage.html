@@ -3,6 +3,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>HOME-PAGE</title>
@@ -12,33 +13,36 @@
 <body>
 
     <div class="Header">
-         <div>
+        <div>
             <h1><a href="/" style="text-decoration: none; color: white; padding: 10px;">BITE DANCE</a></h1>
-         </div>
-         <div class="right">
-             <div><a href="/upload/"> UPLOAD VIDEO</a></div>
-             <div><a href="/bitdance/moderator/"> MODERATION DETAILS</a> </div>
+        </div>
+        <div class="right">
+            <div><a href="/upload/"> UPLOAD VIDEO</a></div>
+            <div><a href="/bitdance/moderator/"> MODERATION DETAILS</a> </div>
             {% if user.is_staff %}
             <div><a href="/bitdance/GodMode/">GOD MODE</a></div>
             {% else %}
             <div>LOGGED IN AS {{user}}</div>
             {%endif%}
-             <div><a href="/account/logout/"> LOG OUT </a> </div>
-         </div>
+            <div><a href="/account/logout/"> LOG OUT </a> </div>
+        </div>
     </div>
 
     <div class="about">
-        <h1>BITE DANCE CLUB VIDEOS </h1>
+        <!-- <h1>BITE DANCE CLUB VIDEOS </h1>-->
+        <input type="date" id="from" onchange="filterbydate()" name="from">
+        <input type="date" id="to" onchange="filterbydate()" name="to">
 
     </div>
 
-        <div class="vidoeGrid">
-         
-             
+    <div class="vidoeGrid">
 
-        </div>
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-      <script src="{% static 'js/HomePagesjs.js' %}"></script>
+
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="{% static 'js/HomePagesjs.js' %}"></script>
 </body>
+
 </html>

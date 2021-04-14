@@ -202,6 +202,27 @@ def getcontent(request):
         else :
             return Response("PLZ AUTHENTICATE AND CALL MUST BE AJAX", status=status.HTTP_400_BAD_REQUEST)
 
+
+
+@api_view(['GET'])
+def filters(request):
+    if request.method =='GET':
+        if request.is_ajax() and request.user.is_authenticated:
+            print(request.GET.get('fromdate'))
+            print(request.GET.get('todate'))
+            fromdate=request.GET.get('fromdate')
+            todate=request.GET.get('todate')
+            allcontent = videoUpload.objects.filter(date__range=[fromdate,todate])
+            videofile = VDContent(allcontent, many=True)
+            return Response({"data": videofile.data},status=status.HTTP_200_OK)
+        else:
+            return Response("PLZ AUTHENTICATE AND CALL MUST BE AJAX", status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+
+
 #HOMEPAGE start ENDS
 
 def Moderator(request):

@@ -14,4 +14,5 @@ urlpatterns = [
     path('bitdance/moderator/ajax',views.ajaxModeration,name="GETMODEAJAX"),
     path('upload/ajax',ajaxsubmitVideo.as_view(),name="upload vidoe"),
     #path('upload/ajax2', views.ajaxsubmitVideo2, name="GET VIDEO"),
+    path('getcontent/filter', views.filters, name="DATE FILTER"),
 ]

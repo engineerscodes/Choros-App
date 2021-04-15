@@ -75,7 +75,7 @@ def reg(request) :
           email =request.POST['emails']
 
           if re.search('^[a-zA-z]+\.[0-9a-zA-Z]+@vitap\.ac\.in$',email) is  None :
-              print(re.search('^[a-zA-z]+\.[0-9a-zA-Z]+@vitap\.ac\.in$',email),"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+              #print(re.search('^[a-zA-z]+\.[0-9a-zA-Z]+@vitap\.ac\.in$',email),"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
               messages.info(request, "USE VITAP MAIL ONLY ")
               return redirect('/account/reg/')
 

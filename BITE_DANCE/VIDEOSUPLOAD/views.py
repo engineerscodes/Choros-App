@@ -68,7 +68,7 @@ class  ajaxsubmitVideo(APIView):
 
 
 def allVideos(request):
-    if (request.user.is_authenticated == False):
+    if request.user.is_authenticated == False:
         return redirect('/account/login')
     if request.method == 'GET':
         allmp4 = videoUpload.objects.all()
@@ -291,6 +291,11 @@ def ajaxModeration(request):
         else :
             return Response ({"data":"Acess DENIED "},status=status.HTTP_400_BAD_REQUEST)
 
+
+def banner(request):
+
+    if request.method =="GET":
+        return render(request,'Banner.html')
 
 
 

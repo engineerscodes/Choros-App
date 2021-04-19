@@ -29,7 +29,7 @@ def PUTVD(request):
             return redirect('/account/login')
 
         form = vd_form()
-        return render(request, "upload.html", {"form": form})
+        return render(request, "upload2.html", {"form": form})
     else :
         return redirect('/account/login')
 

@@ -183,7 +183,7 @@ clip.save_frame("thumbnail.jpg",t=0.10)'''
 def homePage(request):
     if request.method == 'GET':
      if request.user.is_authenticated:
-        videos = videoUpload.objects.all()
+        #videos = videoUpload.objects.all()
         return render(request, 'HomePage.html')
      else :
          return redirect('/account/login')

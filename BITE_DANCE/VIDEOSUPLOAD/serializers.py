@@ -26,7 +26,7 @@ class VDContent(serializers.ModelSerializer):
 
     class Meta:
         model= videoUpload
-        fields=('url_64encoding','thumbnail','captions','username','date')
+        fields=('url_64encoding','thumbnail','captions','username','date','EventName')
 
 class EventSerial(serializers.ModelSerializer):
 

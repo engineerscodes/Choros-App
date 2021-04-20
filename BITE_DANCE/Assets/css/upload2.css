@@ -1,7 +1,7 @@
   
    .modal {
-
-       position: fixed;
+      margin: 10px;
+       position: absolute;
        top: 50%;
        left: 50%;
        transform: translate(-50%, -50%) scale(0);
@@ -10,8 +10,10 @@
        z-index: 50;
        background-color: white;
        width: 60%;
-
+      
        max-width: 80%;
+       
+       
    }
 
    .activemod {
@@ -50,11 +52,11 @@
        flex-direction: column;
        justify-content: center;
        align-items: center;
-       margin: 20px 0;
+       margin: 2px 0;
    }
 
    .modal-body div {
-       margin-top: 23px;
+       margin-top: 2px;
    }
 
    .bg-overlay {
@@ -103,7 +105,7 @@
    .unhide {
        display: none;
        justify-content: space-between;
-       margin: 30px 0;
+       margin: 1px 0;
        width: 100%;
        align-items: center;
        padding: 10px 50px;
@@ -115,28 +117,49 @@
        width: 100%;
 
    }
-
+   .captions label{
+       font-size: 18px;
+       display: block;
+       font-weight: 800;
+       text-transform: uppercase;
+       padding: 5px;
+   }
    .unhide .captions #id_captions {
        width: 80%;
-       border-radius: 15px;
+       border-radius: 5px;
        height: 40px;
-       margin-top: 25px;
+       color: black;
        outline: none;
        background: none;
        font-size: 1rem;
    }
 
    .videopreview {
+       margin-right: 25px;
+      
+   }
+   #E{
+       
+        height: 40px;
+        max-width: 60%;
+        width: 50%;
+        font-size: 1rem;
 
-       width: 250px;
-       height: 250px;
+   }
+
+   .videopreview label{
+       padding: 5px ;
+       font-size: 18px;
+       display: block;
+       font-weight: 800;
+
    }
 
    .videopreview video {
        outline: none;
        background: none;
-       width: 100%;
-       height: 100%;
+       width: 250px;
+       height: 250px;
        display: block;
        object-fit: cover;
    }
@@ -146,6 +169,21 @@
        flex-direction: column;
    }
 
+   .btncenter button{
+    background: whitesmoke;
+    background-clip: padding-box;
+    color: rgb(0, 0, 0);
+    font-size: 18px;
+    padding: 5px;
+    transition: background.6s ease;
+    border: solid rgb(38, 55, 206);
+    border-radius: 5px;
+   }
+   .btncenter button:hover{
+           background: linear-gradient(90deg, #4458dc 0%, #854fee 100%);
+           color: wheat;
+           box-shadow: 0px 10px 30px rgba(57, 56, 61, 0.205);
+   }
    .mainholder {
        display: flex;
        justify-content: center;
@@ -157,7 +195,7 @@
 
    .container {
        width: 100%;
-       height: 700px;
+       height: 100vh;
        color: #555;
        background-color: #ecf0f3;
 
@@ -167,3 +205,60 @@
        border-radius: 50%;
        box-shadow: 0px 0px 5px #474747, 0px 0px 0px 5px #ecf0f3, 8px 8px 15px #8d8e91, -8px -8px 15px #fff;
    }
+
+  @media only screen and (max-width: 490px) 
+  {
+    .modal{
+        width: 80%;
+    }
+
+}
+
+  @media only screen and (max-width: 340px) {
+     #video{
+         width: 150px;
+     }
+
+  }
+
+  @media only screen and (max-width: 1000px) {
+     
+    .unhide{
+        flex-direction: column;
+        padding: 10px 10px;
+       
+    }
+    
+     .videopreview{
+         text-align: center;
+     }
+    
+     .modal{
+         margin: 100px 0;
+         width: 90%;
+     }
+
+  }
+ @media only screen and (max-width: 500px) {
+
+     .unhide {
+       align-items: unset;
+         padding: 10px 0;
+     }
+
+    
+
+ }
+ @media only screen and (max-width: 360px) {
+
+     .videopreview{
+         display: none;
+     }
+
+     .container img {
+         width: 150px;
+         height: 150px;
+     }
+
+ }
+  

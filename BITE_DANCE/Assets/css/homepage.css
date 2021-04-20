@@ -2,7 +2,7 @@
         padding: 0;
         margin: 0;
         box-sizing: border-box;
-        color: rgb(255, 255, 255);
+        color: white;
       
     }
 
@@ -95,7 +95,7 @@
         text-align: center;
         margin: 30px auto;
         text-transform: uppercase;
-        text-decoration: underline;
+        
     }
 
     .vidoeGrid {
@@ -115,9 +115,47 @@
 
     .vidoeDjango h5 {
         overflow: hidden;
+        color: black;
 
     }
-
+    .vidoeDjango a{
+        color: black;
+    }
+      .container .about {
+          display: flex;
+          justify-content: center;
+      }
     #pad {
         margin-top: 10px;
     }
+
+     @media only screen and (max-width: 1100px) {
+        
+          .vidoeGrid {
+               grid-template-columns: repeat(2, 1fr);
+          }
+     }
+
+        @media only screen and (max-width: 740px) {
+
+            .vidoeGrid {
+                grid-template-columns: repeat(1, 1fr);
+            }
+        }
+
+        @media only screen and (max-width: 380px) {
+          
+            .vidoeDjango {
+                width: 90%;
+            }
+
+            .vidoeDjango img{
+               width: 100% !important;
+            }
+            
+            .container .about {
+                flex-direction: column;
+            }
+            
+           
+        }

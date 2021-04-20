@@ -11,44 +11,44 @@
     <link rel="stylesheet" href="{% static 'css/headercss.css' %}">
     <link rel="stylesheet" href="{% static 'css/upload2.css'%}">
     <script src="https://kit.fontawesome.com/427ff44d09.js" crossorigin="anonymous"></script>
+    <style>
+        .progress-bar {
+            margin: 30px 0;
+            width: 250px;
+            height: 40px;
+            border: 4px solid rgb(255, 255, 255);
+            background-color: #aaaaaa;
+            border-radius: 25px;
+        }
+
+        .progress-bar-filler {
+
+            height: 100%;
+            width: 0%;
+            background-color: rgb(31, 182, 132);
+            display: flex;
+            align-items: center;
+            transition: width 0.25s;
+            border-radius: 25px;
+
+
+        }
+
+        .progress-bar-text {
+            margin-left: 10px;
+            font-weight: bolder;
+            color: rgb(240, 12, 228);
+        }
+
+        @media only screen and (max-width: 1080px) {
+            .progress-bar {
+                width: 80%;
+            }
+        }
+    </style>
 
 </head>
-  <style>
-       
-           .progress-bar {
-               margin: 30px 0;
-               width: 250px;
-               height: 40px;
-               border: 4px solid rgb(255, 255, 255);
-               background-color: #aaaaaa;
-               border-radius: 25px;
-           }
 
-           .progress-bar-filler {
-
-               height: 100%;
-               width: 0%;
-               background-color: rgb(31, 182, 132);
-               display: flex;
-               align-items: center;
-               transition: width 0.25s;
-               border-radius: 25px;
-
-
-           }
-
-           .progress-bar-text {
-               margin-left: 10px;
-               font-weight: bolder;
-               color: rgb(240, 12, 228);
-           }
-
-             @media only screen and (max-width: 1080px) {
-               .progress-bar {
-                width: 80%;
-               }
-             }
-  </style>
 <body>
 
     {% include "header.html" %}
@@ -99,22 +99,22 @@
                 </div>
 
                 <div class="unhide">
-                      <div class="videopreview">
-                          <label for="vdid">PREVIEW</label>
+                    <div class="videopreview">
+                        <label for="vdid">PREVIEW</label>
 
 
-                          <video id="video2" controls="controls" src=""
-                              style="display: block ; visibility: hidden;"></video>
+                        <video id="video2" controls="controls" src=""
+                            style="display: block ; visibility: hidden;"></video>
 
 
-                      </div>
+                    </div>
                     <div class="captions">
                         <div> <label for="id_captions"> Caption </label></div>
 
                         {{form.captions}}
-                         <div> <label for="E"> EVENT NAME </label></div>
+                        <div> <label for="E"> EVENT NAME </label></div>
                         <select name="events" id="E" required>
-                             <option value="">None</option>
+                            <option value="">None</option>
                             {% for n in event %}
                             <option value="{{n.eventname}}">{{n.eventname}}</option>
                             {% endfor %}
@@ -128,7 +128,7 @@
 
                         </div>
                     </div>
-                  
+
 
                 </div>
                 <div class="unhide btncenter">
@@ -168,7 +168,7 @@
         let ele = document.getElementsByClassName('hide')
 
         let vdinput = document.getElementById('video');
-        
+
         btnclose.addEventListener('click', () => {
             overlay.classList.remove('active');
             modal.classList.remove('activemod');
@@ -177,7 +177,7 @@
             document.getElementsByClassName('unhide')[0].style.display = 'none';
             document.getElementsByClassName('unhide')[1].style.display = 'none';
             document.getElementById('videoform').reset();
-            
+
         });
 
         btn.addEventListener('click', () => {
@@ -203,13 +203,13 @@
             const mediaQuery = window.matchMedia('(max-width: 990px)')
 
             if (mediaQuery.matches) {
-                let win= document.getElementsByClassName('containerHomepage')[0];
-                if(!win.classList.contains('fullheader'))
-                 win.classList.add('fullheader');
-                 else
-                   win.classList.remove('fullheader');
-            } 
-            
+                let win = document.getElementsByClassName('containerHomepage')[0];
+                if (!win.classList.contains('fullheader'))
+                    win.classList.add('fullheader');
+                else
+                    win.classList.remove('fullheader');
+            }
+
         });
     </script>
 

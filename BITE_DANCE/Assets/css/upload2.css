@@ -1,9 +1,4 @@
-   * {
-       padding: 0;
-       margin: 0;
-       box-sizing: border-box;
-   }
-
+  
    .modal {
 
        position: fixed;
@@ -121,7 +116,7 @@
 
    }
 
-   .unhide .captions #cap {
+   .unhide .captions #id_captions {
        width: 80%;
        border-radius: 15px;
        height: 40px;

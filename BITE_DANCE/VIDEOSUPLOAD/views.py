@@ -10,15 +10,17 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from rest_framework.views import APIView
 from django.utils.encoding import force_text, force_bytes
 from django.apps import apps
-from django.http import JsonResponse
+#from django.http import JsonResponse
 # from django.db.models import Q
-from .serializers import  videoUploadSerializer,MarksSerializer,SubmitVideo,VDContent
+from .serializers import  videoUploadSerializer,MarksSerializer,SubmitVideo,VDContent,EventSerial
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, renderer_classes
-from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
+from rest_framework.decorators import api_view
+#from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
 Mode = apps.get_model('Moderator', 'Mode')
 from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
 
+#from Event.forms import EventForm  #pycharme bug it not error
+Events=apps.get_model('Event','Event')
 #upload page start
 def PUTVD(request):
 
@@ -29,7 +31,8 @@ def PUTVD(request):
             return redirect('/account/login')
 
         form = vd_form()
-        return render(request, "upload2.html", {"form": form})
+        event=Events.objects.all()
+        return render(request, "upload.html", {"form": form,"event":event})
     else :
         return redirect('/account/login')
 
@@ -45,7 +48,7 @@ class  ajaxsubmitVideo(APIView):
 
        if serializerss.is_valid():
            #print(serializerss.validated_data[''])
-
+           #print(request.POST['events'])
            form = vd_form(data=request.POST, files=request.FILES)
            if form.is_valid():
                new_form = form.save(commit=False)
@@ -55,6 +58,7 @@ class  ajaxsubmitVideo(APIView):
                video = videoUpload.objects.get(pk=new_form.id)
                video.url_64encoding = urlsafe_base64_encode(force_bytes(new_form.id))
                video.thumbnail = serializerss.validated_data['thumbnail']
+               video.EventName=request.POST['events']
                video.save()
                #serializerss.save(username=request.user.email,date= date.today().strftime('%Y-%m-%d'))
                #print(videoUpload.objects.filter(pk=serializerss))
@@ -151,7 +155,7 @@ def getSingleVideo(request, uuid):
                 return redirect(f'/videos/{uuid}')
             if check_marks is None and neg>=0:
                 video_post.Total_marks = int(video_post.Total_marks) + neg
-                #print(video_post.total_marks(), "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+                #print(video_post.total_marks(),"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
                 video_post.save()
                 video_marks = Marks()
 
@@ -162,6 +166,7 @@ def getSingleVideo(request, uuid):
                 video_marks.moderator_email = request.user.email
                 video_marks.date = date.today().strftime('%Y-%m-%d')
                 video_marks.marks = request.POST['video_marks']
+                video_marks.EventName=video_post.EventName
                 video_marks.verfiyed = True
                 video_marks.save()
                 return redirect(f'/videos/{uuid}')

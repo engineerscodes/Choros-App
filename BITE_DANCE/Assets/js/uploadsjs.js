@@ -33,7 +33,7 @@ const file_vd = document.getElementById("video");
 const progress_bar = document.getElementsByClassName("progress-bar-filler")[0];
 
 const progress_text = document.getElementsByClassName("progress-bar-text")[0];
-
+  
 function submitVDFORM(e) {
   e.preventDefault();
   let vdform = document.getElementById("videoform");
@@ -42,11 +42,16 @@ function submitVDFORM(e) {
   let vd_file = document.getElementById("video");
   //let file_Selecteds=document.getElementById('video');
   let thubimg = document.getElementById("output2").value;
+  
+  let eventsname = document.getElementById("E").value;
+  //console.log(eventsname);
+
   let formsdata = new FormData();
   formsdata.append("csrfmiddlewaretoken", token);
   formsdata.append("captions", caption);
   formsdata.append("video", vd_file.files[0]);
   formsdata.append("thumbnail", thubimg);
+  formsdata.append("events",eventsname);
 
   formTask = $.ajax({
     xhr: function () {
@@ -78,6 +83,10 @@ function submitVDFORM(e) {
     success: function (respone) {
       alert(" FILE UPLOADED ");
        vdform.reset();
+         percentComplete = 0;
+        progress_bar.style.width = percentComplete.toFixed(2) + "%";
+        progress_text.textContent = percentComplete.toFixed(1) + "%";
+      
     },
     error: function (error) {
       alert(error.responseJSON.video);

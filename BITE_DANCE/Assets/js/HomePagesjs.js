@@ -1,6 +1,15 @@
 let gridvd = document.getElementsByClassName("vidoeGrid")[0];
 let count = 0;
+let res=0;
 function getVideos() {
+   
+  /* if((count*6)-(count-1)*6>res && count!=0)
+    {  console.log("count*6 :" + count * 6);
+    console.log("res :" + res);
+     return 0;
+    }
+    */
+
   $.ajax({
     type: "GET",
     url: "getcontent/",
@@ -9,6 +18,8 @@ function getVideos() {
     },
     success: function (respone) {
       let responeObject = respone.data;
+       
+      res=responeObject.length;
       for (i in responeObject) {
         let divT = document.createElement("div");
         divT.setAttribute("class", "vidoeDjango");
@@ -20,7 +31,7 @@ function getVideos() {
         imgs.style.height = "200px";
         anc.appendChild(imgs);
         divT.appendChild(anc);
-        for (let j = 0; j < 3; j++) {
+        for (let j = 0; j < 4; j++) {
           let h5 = document.createElement("h5");
           if (j == 0) {
             h5.innerHTML = responeObject[i].captions;
@@ -31,6 +42,10 @@ function getVideos() {
           }
           if (j == 2) {
             h5.innerHTML = responeObject[i].date;
+          }
+          if(j==3)
+          {
+            h5.innerHTML = "Event Name :" + responeObject[i].EventName;
           }
           divT.appendChild(h5);
         }
@@ -82,7 +97,7 @@ function filterbydate() {
           imgs.style.height = "200px";
           anc.appendChild(imgs);
           divT.appendChild(anc);
-          for (let j = 0; j < 3; j++) {
+          for (let j = 0; j < 4; j++) {
             let h5 = document.createElement("h5");
             if (j == 0) {
               h5.innerHTML = responeObject[i].captions;
@@ -93,6 +108,9 @@ function filterbydate() {
             }
             if (j == 2) {
               h5.innerHTML = responeObject[i].date;
+            }
+            if (j == 3) {
+              h5.innerHTML = "Event Name :" +responeObject[i].EventName;
             }
             divT.appendChild(h5);
           }

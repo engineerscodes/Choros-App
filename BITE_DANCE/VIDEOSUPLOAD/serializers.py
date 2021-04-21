@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import videoUpload,Marks
+from django.apps import apps
+Events=apps.get_model('Event','Event')
 
 class MarksSerializer(serializers.ModelSerializer) :
     class Meta:
@@ -24,5 +26,10 @@ class VDContent(serializers.ModelSerializer):
 
     class Meta:
         model= videoUpload
-        fields=('url_64encoding','thumbnail','captions','username','date')
+        fields=('url_64encoding','thumbnail','captions','username','date','EventName')
 
+class EventSerial(serializers.ModelSerializer):
+
+    class Meta:
+        model=Events
+        fields='__all__'

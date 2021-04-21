@@ -70,10 +70,9 @@ def login(request):
 def reg(request):
 
     if request.method == 'GET':
-
         return render(request, 'reg.html')
+      
     if request.method == 'POST':
-
         userName = request.POST['names']
         password = request.POST['password_cfn']
         email = request.POST['emails']

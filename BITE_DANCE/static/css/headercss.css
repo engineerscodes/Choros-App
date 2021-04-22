@@ -14,7 +14,7 @@
         bottom: 0;
         box-shadow: 0px 0px 25px 0px #000000fa;
         color: white;
-
+        z-index: 1000;
         transition: background 1s ease;
         padding: 10px 5px;
       
@@ -72,6 +72,7 @@
         visibility: hidden;
         transition: top 0.3s;
         border-top: 3px solid cyan;
+        
     }
 
     nav ul ul li a:hover {

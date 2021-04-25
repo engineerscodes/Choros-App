@@ -15,5 +15,6 @@ urlpatterns = [
     path('upload/ajax',ajaxsubmitVideo.as_view(),name="upload vidoe"),
     #path('upload/ajax2', views.ajaxsubmitVideo2, name="GET VIDEO"),
     path('getcontent/filter', views.filters, name="DATE FILTER"),
-    path('banner/',views.banner,name="BANNER PAGE")
+    path('banner/',views.banner,name="BANNER PAGE"),
+    path('events/',views.eventsajax,name="sort by events")
 ]

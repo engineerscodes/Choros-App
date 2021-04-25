@@ -7,7 +7,7 @@ class MarksSerializer(serializers.ModelSerializer) :
     class Meta:
         model=Marks
         #fields="__all__"
-        fields=('video_link','date','by_email')
+        fields=('video_link','date','by_email','EventName')
 
 class videoUploadSerializer(serializers.ModelSerializer):
     class Meta:

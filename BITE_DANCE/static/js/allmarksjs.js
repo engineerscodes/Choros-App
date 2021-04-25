@@ -1,52 +1,14 @@
-$("#vd").on("change", function () {
-  var val = $(this).val();
+$("#unseen").on("click", function () {
 
-  //console.log(val);
-  var token = $("input[name=csrfmiddlewaretoken]").val();
-  //console.log(token)
   $.ajax({
     type: "GET",
     url: "/bitdance/moderator/ajax",
     data: {
-      videos: val,
-      //csrfmiddlewaretoken: token
+      videos: "unseen",
     },
     success: function (respone) {
-      let responeObject = respone.data;
-      if (val === "verified") {
-        let tb = document.getElementById("TB");
-        tb.innerHTML = "";
-        let upd = document.getElementById("UPD");
-        upd.innerHTML = "DATE";
-        for (i in responeObject) {
-          let tr = document.createElement("tr");
-          let link = responeObject[i].video_link;
-          let date = responeObject[i].date;
-          let uploadeduser = responeObject[i].by_email;
-
-          for (let j = 0; j < 3; j++) {
-            let td = document.createElement("td");
-            if (j === 0) {
-              let a = document.createElement("a");
-              a.setAttribute("href", "/videos/" + link);
-              a.setAttribute("target", "_blank");
-              a.innerHTML = "LINK";
-              td.appendChild(a);
-            }
-            if (j === 1) {
-              td.innerHTML = date;
-            }
-            if (j === 2) {
-              td.innerHTML = uploadeduser;
-            }
-
-            tr.appendChild(td);
-          }
-          tb.appendChild(tr);
-        }
-      }
-
-      if (val === "unseen") {
+        document.getElementById("eventname").style.display = "none";
+        let responeObject = respone.data;
         let tb = document.getElementById("TB");
         tb.innerHTML = "";
         let upd = document.getElementById("UPD");
@@ -56,7 +18,8 @@ $("#vd").on("change", function () {
           let link = responeObject[i].url_64encoding;
           let date = responeObject[i].date;
           let uploadeduser = responeObject[i].username;
-
+          let tdtemp = document.createElement("td");
+          tr.appendChild(tdtemp);
           for (let j = 0; j < 3; j++) {
             let td = document.createElement("td");
             if (j === 0) {
@@ -77,7 +40,105 @@ $("#vd").on("change", function () {
           }
           tb.appendChild(tr);
         }
+      
+    },
+  });
+});
+
+
+$("#verified").on("click", function () {
+  $.ajax({
+    type: "GET",
+    url: "/bitdance/moderator/ajax",
+    data: {
+      videos: "verified",
+    },
+    success: function (respone) {
+      let responeObject = respone.data;
+      document.getElementById("eventname").style.display = "none";
+      let tb = document.getElementById("TB");
+      tb.innerHTML = "";
+      let upd = document.getElementById("UPD");
+      upd.innerHTML = "DATE";
+      for (i in responeObject) {
+        let tr = document.createElement("tr");
+        let link = responeObject[i].video_link;
+        let date = responeObject[i].date;
+        let uploadeduser = responeObject[i].by_email;
+        let tdtemp = document.createElement("td");
+        tr.appendChild(tdtemp);
+
+        for (let j = 0; j < 3; j++) {
+          let td = document.createElement("td");
+
+          if (j === 0) {
+            let a = document.createElement("a");
+            a.setAttribute("href", "/videos/" + link);
+            a.setAttribute("target", "_blank");
+            a.innerHTML = "LINK";
+            td.appendChild(a);
+          }
+          if (j === 1) {
+            td.innerHTML = date;
+          }
+          if (j === 2) {
+            td.innerHTML = uploadeduser;
+          }
+
+          tr.appendChild(td);
+        }
+        tb.appendChild(tr);
       }
     },
   });
+});
+
+
+$("#filterbyevent").on('click',function(){
+    $.ajax({
+      type: "GET",
+      url: "/events/",
+      success: function (respone) {
+        let responeObject = respone.data;
+        
+       
+        document.getElementById("eventname").style.display = "table-cell";
+        let tb = document.getElementById("TB");
+        tb.innerHTML = "";
+        let upd = document.getElementById("UPD");
+        upd.innerHTML = "DATE";
+        for (i in responeObject) {
+          let tr = document.createElement("tr");
+          let link = responeObject[i].video_link;
+          let date = responeObject[i].date;
+          let uploadeduser = responeObject[i].by_email;
+          let eventsname = responeObject[i].EventName;
+          let tdtemp = document.createElement("td");
+          tr.appendChild(tdtemp);
+
+          for (let j = 0; j < 4; j++) {
+            let td = document.createElement("td");
+
+            if (j === 1) {
+              let a = document.createElement("a");
+              a.setAttribute("href", "/videos/" + link);
+              a.setAttribute("target", "_blank");
+              a.innerHTML = "LINK";
+              td.appendChild(a);
+            }
+            if(j===0){td.innerHTML=eventsname}
+            if (j === 2) {
+              td.innerHTML = date;
+            }
+            if (j === 3) {
+              td.innerHTML = uploadeduser;
+            }
+
+            tr.appendChild(td);
+          }
+          tb.appendChild(tr);
+        }
+      },
+    });
+
 });

@@ -1,73 +1,274 @@
 {% load static %}
+{% static "images" as baseUrl %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>MARKS -{{ user.username }}</title>
-        <link rel="stylesheet" href="{% static 'css/getmarkscss.css' %}">
-        <link rel="stylesheet" href="{% static 'css/allmarkscss.css'%}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moderation</title>
+    <link rel="stylesheet" href="{% static 'css/headercss.css' %}">
+    <script src="https://kit.fontawesome.com/427ff44d09.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/getmarkscss.css' %}">
+    <link rel="stylesheet" href="{% static 'css/allmarkscss.css'%}">
+    <script type="module" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule="" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.js"></script>
+     <style>
+         /*===== VARIABLES CSS =====*/
+         :root {
+             --nav-width: 92px;
+
+             /*===== Colores =====*/
+             --first-color: #20dea0;
+             --bg-color: #1b1b1b;
+             ;
+             --sub-color: #B6CEFC;
+             --white-color: #FFF;
+
+             /*===== Fuente y tipografia =====*/
+             --body-font: 'Poppins', sans-serif;
+             --normal-font-size: 1rem;
+             --small-font-size: .875rem;
+
+             /*===== z index =====*/
+             --z-fixed: 100;
+         }
+
+         a {
+             text-decoration: none;
+         }
+
+         /*===== l NAV =====*/
+         .l-navbar {
+             position: fixed;
+             top: 70px;
+             left: 0;
+             width: var(--nav-width);
+             bottom: 0;
+             background-color: var(--bg-color);
+             color: var(--white-color);
+             padding: 1.5rem 1.5rem 2rem;
+             transition: .5s;
+             z-index: var(--z-fixed);
+         }
+
+
+         .nav {
+             height: 100%;
+             display: flex;
+             flex-direction: column;
+             justify-content: space-between;
+             overflow: hidden;
+         }
+
+         .nav__brand {
+             display: grid;
+             grid-template-columns: max-content max-content;
+             justify-content: space-between;
+             align-items: center;
+             margin-bottom: 2rem;
+         }
+
+         .nav__toggle {
+             font-size: 1.25rem;
+             padding: .75rem;
+             cursor: pointer;
+         }
+
+         .nav__logo {
+             color: var(--white-color);
+             font-weight: 600;
+         }
+
+         .nav__link {
+             display: grid;
+             grid-template-columns: max-content max-content;
+             align-items: center;
+             column-gap: .75rem;
+             padding: .75rem;
+             color: var(--white-color);
+             border-radius: .5rem;
+             margin-bottom: 1rem;
+             transition: .3s;
+             cursor: pointer;
+         }
+
+         .nav__link:hover {
+             background-color: var(--first-color);
+         }
+
+         .nav__icon {
+             font-size: 1.25rem;
+         }
+
+         .nav__name {
+             font-size: var(--small-font-size);
+         }
+
+         /*Expander menu*/
+         .expander {
+             width: calc(var(--nav-width) + 9.25rem);
+         }
+
+         /*Add padding body*/
+         .body-pd {
+             padding: 2rem 0 0 16rem;
+         }
+
+         /*Active links menu*/
+         .active {
+             background-color: var(--first-color);
+         }
+
+         .activesider {
+             background-color: var(--first-color);
+         }
+
+
+         /*Rotate icon*/
+         .rotate {
+             transform: rotate(180deg);
+         }
+
+         .tableVIEW {
+
+             padding: 16px;
+             position: absolute;
+             left: 92px;
+             right: 0;
+         }
+
+         .kill2-coll {
+             left: calc(92px + 9.25rem);
+             transition: .5s;
+         }
+     </style>
+     <style>
+         .blue {
+             counter-reset: serial-number;
+         }
+
+         .blue tr td:first-child:before {
+             counter-increment: serial-number;
+             /* Increment the Serial counter */
+             content: counter(serial-number);
+             /* Display the counter */
+         }
+     </style>
 </head>
-<body>
+
+<body >
+    
+            <div >
+                {% include "header.html" %}
+            </div>
+            
+            <div id="body-pd">
+                <div class="l-navbar" id="navbar">
+                    <div class="nav">
+                   
+                        <div>
+                            <div class="nav__brand">
+                                <ion-icon name="menu-outline" class="nav__toggle" id="nav-toggle"></ion-icon>
+                                <a class="nav__logo">FILTER </a>
+                            </div>
+                             
+                            <div class="nav__list">
+                                <a class="nav__link">
+                                    <ion-icon name="pie-chart-outline" class="nav__icon"></ion-icon>
+                                    <span class="nav__name">Analytics</span>
+                                </a>
+                                <a class="nav__link " id="filterbyevent">
+                                    <ion-icon name="infinite-outline" class="nav__icon"></ion-icon>
+                                    <span class="nav__name">EVENT</span>
+                                </a>
+
+                                <a class="nav__link " id="verified">
+                                    <ion-icon name="checkmark-done-circle-outline" class="nav__icon"></ion-icon>
+                                    <span class="nav__name">CORRECTED</span>
+                                </a>
+                                <a class="nav__link activesider" id="unseen">
+                                    <ion-icon name="alert-outline" class="nav__icon"></ion-icon>
+                                    <span class="nav__name">PENDING</span>
+                                </a>
+
+                            </div>
+                        </div>
+                    
+                        <a href="#" class="nav__link">
+                            <ion-icon name="help-outline" class="nav__icon"></ion-icon>
+                            <span class="nav__name">T&C</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tableVIEW containerHomepage" id="rightbar">
+               
+               <div class="output">
+                   <table class="blue">
+                       <thead>
+                           <tr >
+                            
+                               <th>SR.NO</th>
+                                <th style="display: none;" id="eventname">EVENT NAME</th>
+                               <th> link </th>
+                               <th id="UPD">UPLOADED DATE </th>
+                               <th>USER</th>
+                           </tr>
+                       </thead>
+                       <tbody id="TB">
+                           {% for i in LeftOver %}
+                           <tr>
+                               <td></td>
+                               <td><a href="/videos/{{i.url_64encoding}}" target="_blank">View</a></td>
+                               <td>{{i.date}}</td>
+                               <td>{{i.username}}</td>
+
+                           </tr>
+                           {% endfor %}
+                       </tbody>
+                   </table>
+               </div>
+            </div>
+
        
-    <div class="Header">
-        <div>
-            <h1><a href="/" style="text-decoration: none; color: white; padding: 10px;">BITE DANCE</a></h1>
-        </div>
-        <div class="right">
-            <div><a href="/upload/"> UPLOAD VIDEO</a></div>
-            <div><a href="/bitdance/moderator/"> MODERATION DETAILS</a> </div>
-           {% if user.is_staff %}
-           <div><a href="/bitdance/GodMode/">GOD MODE</a></div>
-           {% else %}
-           <div>LOGGED IN AS {{user}}</div>
-           {%endif%}
-            <div><a href="/account//logout/"> LOG OUT </a> </div>
-        </div>
-    </div>
 
-     <div class="category">
-                <form method="POST">
-                    {% csrf_token %}
-                
-                        <label for="vd">FILTER </label>
-                        <select id="vd" name="videos" >
-                            <option value="unseen"> Not verified</option>
-                            <option value="verified">verified</option>
-                        </select>
-
-                </form>
-  </div>
-  <diV class="holder">
-      <h1></h1>
-  </diV>
-  
-  <div class="output">
-       <table class="blue">
-           <thead>
-               <tr>
-                   <th> link </th>
-                   <th id="UPD">UPLOADED DATE </th>
-                   <th>USER</th>
-               </tr>
-           </thead>
-           <tbody id="TB">
-               {% for i in LeftOver %}
-               <tr>
-                  
-                   <td><a href="/videos/{{i.url_64encoding}}" target="_blank">View</a></td>
-                    <td>{{i.date}}</td>
-                   <td>{{i.username}}</td>
-
-               </tr>
-               {% endfor %}
-           </tbody>
-       </table>
-  </div>
-
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js" 
-  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-   
- 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="{% static 'js/allmarksjs.js' %}"></script>
+      <script>
+            let showMenu = (toggleId, navbarId, bodyId) => {
+            let toggle = document.getElementById(toggleId),
+            navbar = document.getElementById(navbarId),
+            divpadding = document.getElementById(bodyId),
+            rightcoll=document.getElementById('rightbar');
+            
+            if (toggle && navbar) {
+            toggle.addEventListener('click', () => {
+            navbar.classList.toggle('expander')
+
+            divpadding.classList.toggle('body-pd')
+            rightcoll.classList.toggle('kill2-coll')
+            })
+            }
+            }
+            showMenu('nav-toggle', 'navbar', 'body-pd');
+          $('.icon').click(function () {
+              $('span').toggleClass("cancel");
+              const mediaQuery = window.matchMedia('(max-width: 990px)')
+
+              if (mediaQuery.matches) {
+                  let win = document.getElementsByClassName('containerHomepage')[0];
+                  if (!win.classList.contains('fullheader'))
+                      win.classList.add('fullheader');
+                  else
+                      win.classList.remove('fullheader');
+              }
+
+          });
+      </script>
 </body>
+
 </html>

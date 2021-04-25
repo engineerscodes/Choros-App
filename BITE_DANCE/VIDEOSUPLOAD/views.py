@@ -298,13 +298,28 @@ def ajaxModeration(request):
             return Response ({"data":"Acess DENIED "},status=status.HTTP_400_BAD_REQUEST)
 
 
+
+
+@api_view(['GET'])
+def eventsajax(request):
+    if request.method == 'GET':
+
+        try:
+            mode_team = Mode.objects.get(email=request.user.email)
+        except Exception:
+            mode_team = None
+
+        if mode_team is not None and mode_team.username == request.user.username and mode_team.mode_active:
+            allmark_user = Marks.objects.filter(moderator_email=request.user.email).order_by('EventName')
+            if request.is_ajax():
+                cur_marked=MarksSerializer(allmark_user,many=True)
+                return Response({"data": cur_marked.data})
+
+        else :
+            return Response ({"data":"Acess DENIED "},status=status.HTTP_400_BAD_REQUEST)
+
+
 def banner(request):
-
-    if request.method =="GET":
-        return render(request,'Banner.html')
-
-
-
-
-
+    if request.method == "GET":
+        return render(request, 'Banner.html')
 

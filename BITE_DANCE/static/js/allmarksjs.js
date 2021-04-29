@@ -8,6 +8,9 @@ $("#unseen").on("click", function () {
     },
     success: function (respone) {
         document.getElementById("eventname").style.display = "none";
+        document.getElementsByClassName("output")[0].style.display = "flex";
+        document.getElementById("dia").style.display = "none";
+        
         let responeObject = respone.data;
         let tb = document.getElementById("TB");
         tb.innerHTML = "";
@@ -56,6 +59,9 @@ $("#verified").on("click", function () {
     success: function (respone) {
       let responeObject = respone.data;
       document.getElementById("eventname").style.display = "none";
+      document.getElementsByClassName("output")[0].style.display = "flex";
+      document.getElementById("dia").style.display = "none";
+      document.getElementById("infoteller").innerHTML = " MODERATED ";
       let tb = document.getElementById("TB");
       tb.innerHTML = "";
       let upd = document.getElementById("UPD");
@@ -103,6 +109,9 @@ $("#filterbyevent").on('click',function(){
         
        
         document.getElementById("eventname").style.display = "table-cell";
+        document.getElementsByClassName("output")[0].style.display = "flex";
+        document.getElementById("dia").style.display = "none";
+        document.getElementById("infoteller").innerHTML = "SORT BY EVENTS ";
         let tb = document.getElementById("TB");
         tb.innerHTML = "";
         let upd = document.getElementById("UPD");
@@ -141,4 +150,51 @@ $("#filterbyevent").on('click',function(){
       },
     });
 
+});
+
+
+
+$("#analytics").on('click',()=>{
+
+   $.ajax({
+     type: "GET",
+     url: "/analaytics/",
+     success: function (respone) {
+       document.getElementsByClassName("output")[0].style.display="none";
+       document.getElementById("dia").style.display = "flex";
+       document.getElementById(
+         "diag"
+       ).innerHTML = `<canvas id="statcPie" ></canvas>`;
+       let diag = document.getElementById("statcPie").getContext("2d");
+
+         const data = {
+           labels: ["CORRECTED ", "PENDING"],
+
+           datasets: [
+             {
+               label: "My First Dataset",
+               data: [respone.Actual_corrected, respone.Left_count],
+               backgroundColor: ["rgb(255, 99, 132)", "rgb(54, 162, 235)"],
+               hoverOffset: 4,
+               options: {
+                 responsive: true,
+                 maintainAspectRatio: false,
+                 layout: {
+                   padding: 20,
+                 },
+               },
+             },
+           ],
+         };
+         
+            const config = {
+              type: "pie",
+              data: data,
+              
+            };
+           
+            let  myChart = new Chart(diag, config);
+       
+     },
+   });
 });

@@ -323,3 +323,21 @@ def banner(request):
     if request.method == "GET":
         return render(request, 'Banner.html')
 
+
+@api_view(['GET'])
+def analaytics(request):
+    if request.method == 'GET':
+
+        try:
+            mode_team = Mode.objects.get(email=request.user.email)
+        except Exception:
+            mode_team = None
+
+        if mode_team is not None and mode_team.username == request.user.username and mode_team.mode_active:
+            correct_count = Marks.objects.filter(moderator_email=request.user.email).count()
+            Left_count=Marks.objects.exclude(moderator_email=request.user.email).count()
+            if request.is_ajax():
+                return Response({"Left_count":Left_count,"Actual_corrected":correct_count })
+
+        else :
+            return Response ({"data":"Acess DENIED "},status=status.HTTP_400_BAD_REQUEST)

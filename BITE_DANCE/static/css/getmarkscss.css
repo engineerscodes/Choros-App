@@ -9,9 +9,9 @@
 
         table {
             border-collapse: collapse;
-            width: 60%;
+            width: 70%;
             text-transform: uppercase;
-            max-width: 70%;
+            max-width: 80%;
             
         }
 
@@ -36,9 +36,10 @@
 
         th,
         td {
-            text-align: center;
+            
             padding: 5px 10px;
-           
+            font-weight: bolder;
+            width: auto;
         }
       
 

@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from django.contrib.auth.models import  auth,User
+from django.contrib.auth.models import auth, User, Group
 from django.contrib import messages
 from django.views import View
 import re
@@ -92,6 +92,8 @@ def reg(request) :
                 user=User.objects.create_user(username=userName,password=password,email=email)
                 user.is_active=False
                 user.save()
+                group = Group.objects.get(name='members')
+                user.groups.add(group)
                 # PasswordResetTokenGenerator use it to verfiy and create token also
                 Useract_token = Token_generator()
 

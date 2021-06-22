@@ -1,11 +1,198 @@
+#body-pd {
+    display: grid;
+    grid-template-columns: 92px auto;
+    height: 700px;
+}
 
-       .output{
-           display: flex;
-           
-          text-align: center;
-          flex-direction: column;
-          align-items: center;
-       }
+.nav__link a {
+    display: none;
+    color: white;
+}
 
+.nav__brand a {
+    display: none;
+}
 
+#nav-toggle {
+    color: white;
+}
+
+.navclick {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 2rem;
+    padding:10px 5px;
+    border-radius: .8rem;
+    transition: .3s;
+    cursor: pointer;
+  
     
+}
+.navclick:hover {
+    background-color: var(--first-color);
+}
+
+.navclick .navhide {
+    display: none;
+}
+
+.navclick .nav__icon {
+    color: white;
+}
+
+
+
+.output{
+display: flex;
+
+text-align: center;
+flex-direction: column;
+align-items: center;
+overflow: hidden;
+}
+
+.blue {
+counter-reset: serial-number;
+    overflow: hidden;
+}
+
+.blue tr td:first-child:before {
+counter-increment: serial-number;
+/* Increment the Serial counter */
+content: counter(serial-number);
+/* Display the counter */
+}
+
+#stats {
+width: 460px;
+height: 460px;
+}
+
+#diag {
+padding-top: 10px;
+}
+
+.statswrapper {
+display: flex;
+justify-content: center;
+text-align: center;
+font-size: 24px;
+line-height: 28px;
+letter-spacing: .125em;
+margin: 60px auto;
+color: #d3d3d3;
+font-weight: bolder;
+}
+
+#infoteller {
+font-size: 48px;
+line-height: 28px;
+letter-spacing: .125em;
+margin: 30px auto;
+color: #d3d3d3;
+font-weight: bolder;
+}
+
+:root {
+    --nav-width: 92px;
+
+    /*===== Colores =====*/
+    --first-color: #20dea0;
+    --bg-color: #1b1b1b;
+    ;
+    --sub-color: #B6CEFC;
+    --white-color: #FFF;
+
+    /*===== Fuente y tipografia =====*/
+    --body-font: 'Poppins', sans-serif;
+    --normal-font-size: 1rem;
+    --small-font-size: .875rem;
+
+    /*===== z index =====*/
+    --z-fixed: 100;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+
+.nav2 {
+    height: 700px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    background-color:  #1b1b1b;
+}
+
+.nav__brand {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.nav__toggle {
+    font-size: 1.25rem;
+    padding: .75rem;
+    cursor: pointer;
+}
+
+.nav__logo {
+    color: var(--white-color);
+    font-weight: 600;
+}
+
+
+.nav__icon {
+    font-size: 1.25rem;
+}
+
+.nav__name {
+    font-size: var(--small-font-size);
+}
+
+/*Expander menu*/
+.expander {
+    grid-template-columns: 250px auto !important;
+    
+}
+
+/*Add padding body*/
+.body-pd {
+    padding: 0;
+}
+
+/*Active links menu*/
+.active {
+    background-color: var(--first-color);
+}
+
+
+
+/*Rotate icon*/
+.rotate {
+    transform: rotate(180deg);
+}
+
+.navclickexp{
+    
+justify-content: unset !important;
+padding-left: 10px !important;
+
+}
+
+.bb{
+    display: block !important;
+    color: white;
+    padding-left: 25px !important;
+    
+}
+
+#myInput{
+    padding: 10px;
+    font-size: 15px;
+    
+}

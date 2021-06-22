@@ -1,5 +1,4 @@
 $("#unseen").on("click", function () {
-
   $.ajax({
     type: "GET",
     url: "/bitdance/moderator/ajax",
@@ -7,47 +6,38 @@ $("#unseen").on("click", function () {
       videos: "unseen",
     },
     success: function (respone) {
-        document.getElementById("eventname").style.display = "none";
-        document.getElementsByClassName("output")[0].style.display = "flex";
-        document.getElementById("dia").style.display = "none";
-        
-        let responeObject = respone.data;
-        let tb = document.getElementById("TB");
-        tb.innerHTML = "";
-        let upd = document.getElementById("UPD");
-        upd.innerHTML = "UPLOADED DATE";
-        for (i in responeObject) {
-          let tr = document.createElement("tr");
-          let link = responeObject[i].url_64encoding;
-          let date = responeObject[i].date;
-          let uploadeduser = responeObject[i].username;
-          let tdtemp = document.createElement("td");
-          tr.appendChild(tdtemp);
-          for (let j = 0; j < 3; j++) {
-            let td = document.createElement("td");
-            if (j === 0) {
-              let a = document.createElement("a");
-              a.setAttribute("href", "/videos/" + link);
-              a.setAttribute("target", "_blank");
-              a.innerHTML = "LINK";
-              td.appendChild(a);
-            }
-            if (j === 1) {
-              td.innerHTML = date;
-            }
-            if (j === 2) {
-              td.innerHTML = uploadeduser;
-            }
+      let responeObject = respone.data;
+      let tab = document.getElementById("example");
+      tab.style.display = "table";
+      document.getElementById("dia").style.display = "none";
+      document.getElementById("HeaderOut").innerHTML = "PENDING";
+      tab.innerHTML = "";
+      tab.innerHTML = `<thead>
+            <tr>
+                <th>SR.NO</th>
+                <th>LINK</th>
+                <th>UPLOADED DATE</th>
+                <th>USER</th>
+            </tr>
+        </thead>`;
+      let temptb = "";
+      for (let i = 0; i < responeObject.length; i++) {
+        temptb =
+          temptb +
+          ` <tr>
+                <td></td>
+                <td>${responeObject[i].date}</td>
+                <td><a href="/videos/${
+                  responeObject[i].url_64encoding
+                }" target="_blank">View</a></td>
+                <td>${responeObject[i].username.split("@")[0]}</td>
+            </tr> `;
+      }
 
-            tr.appendChild(td);
-          }
-          tb.appendChild(tr);
-        }
-      
+      tab.innerHTML = tab.innerHTML + "<tbody>" + temptb + "</tbody>";
     },
   });
 });
-
 
 $("#verified").on("click", function () {
   $.ajax({
@@ -58,143 +48,144 @@ $("#verified").on("click", function () {
     },
     success: function (respone) {
       let responeObject = respone.data;
-      document.getElementById("eventname").style.display = "none";
-      document.getElementsByClassName("output")[0].style.display = "flex";
+      let tab = document.getElementById("example");
+      tab.style.display = "table";
       document.getElementById("dia").style.display = "none";
-      document.getElementById("infoteller").innerHTML = " MODERATED ";
-      let tb = document.getElementById("TB");
-      tb.innerHTML = "";
-      let upd = document.getElementById("UPD");
-      upd.innerHTML = "DATE";
-      for (i in responeObject) {
-        let tr = document.createElement("tr");
-        let link = responeObject[i].video_link;
-        let date = responeObject[i].date;
-        let uploadeduser = responeObject[i].by_email;
-        let tdtemp = document.createElement("td");
-        tr.appendChild(tdtemp);
+      document.getElementById("HeaderOut").innerHTML = "CORRECTED";
+      tab.innerHTML = "";
 
-        for (let j = 0; j < 3; j++) {
-          let td = document.createElement("td");
-
-          if (j === 0) {
-            let a = document.createElement("a");
-            a.setAttribute("href", "/videos/" + link);
-            a.setAttribute("target", "_blank");
-            a.innerHTML = "LINK";
-            td.appendChild(a);
-          }
-          if (j === 1) {
-            td.innerHTML = date;
-          }
-          if (j === 2) {
-            td.innerHTML = uploadeduser;
-          }
-
-          tr.appendChild(td);
-        }
-        tb.appendChild(tr);
+      tab.innerHTML = `<thead>
+            <tr>
+                <th>SR.NO</th>
+                <th>EVENT NAME</th>
+                <th>DATE</th>
+                <th>LINK</th>
+                <th>USER</th>
+            </tr>
+        </thead>`;
+      let temptb = "";
+      for (let i = 0; i < responeObject.length; i++) {
+        temptb =
+          temptb +
+          ` <tr>
+                <td></td>
+                <td>${responeObject[i].EventName}</td>
+                 <td>${responeObject[i].date}</td>
+                <td><a href="/videos/${
+                  responeObject[i].video_link
+                }" target="_blank">View</a></td>
+                <td>${responeObject[i].by_email.split("@")[0]}</td>
+            </tr> `;
       }
+
+      tab.innerHTML = tab.innerHTML + "<tbody>" + temptb + "</tbody>";
     },
   });
 });
 
+$("#filterbyevent").on("click", function () {
+  $.ajax({
+    type: "GET",
+    url: "/events/",
+    success: function (respone) {
+      let responeObject = respone.data;
+      let tab = document.getElementById("example");
+      tab.style.display = "table";
+      document.getElementById("dia").style.display = "none";
+      document.getElementById(
+        "HeaderOut"
+      ).innerHTML = `<div style="margin:5px;">SEARCH</div><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for eventnames.." title="Type in a name">`;
+      tab.innerHTML = ``;
+      tab.innerHTML = `<thead>
+            <tr>
+                <th>SR.NO</th>
+                <th>EVENT NAME</th>
+                <th>DATE</th>
+                <th>LINK</th>
+                <th>USER</th>
+            </tr>
+        </thead>`;
+      let temptb = "";
+      for (let i = 0; i < responeObject.length; i++) {
+        temptb =
+          temptb +
+          ` <tr>
+                <td></td>
+                <td>${responeObject[i].EventName}</td>
+                 <td>${responeObject[i].date}</td>
+                <td><a href="/videos/${
+                  responeObject[i].video_link
+                }" target="_blank">View</a></td>
+                <td>${responeObject[i].by_email.split("@")[0]}</td>
+            </tr> `;
+      }
 
-$("#filterbyevent").on('click',function(){
-    $.ajax({
-      type: "GET",
-      url: "/events/",
-      success: function (respone) {
-        let responeObject = respone.data;
-        
-       
-        document.getElementById("eventname").style.display = "table-cell";
-        document.getElementsByClassName("output")[0].style.display = "flex";
-        document.getElementById("dia").style.display = "none";
-        document.getElementById("infoteller").innerHTML = "SORT BY EVENTS ";
-        let tb = document.getElementById("TB");
-        tb.innerHTML = "";
-        let upd = document.getElementById("UPD");
-        upd.innerHTML = "DATE";
-        for (i in responeObject) {
-          let tr = document.createElement("tr");
-          let link = responeObject[i].video_link;
-          let date = responeObject[i].date;
-          let uploadeduser = responeObject[i].by_email;
-          let eventsname = responeObject[i].EventName;
-          let tdtemp = document.createElement("td");
-          tr.appendChild(tdtemp);
-
-          for (let j = 0; j < 4; j++) {
-            let td = document.createElement("td");
-
-            if (j === 1) {
-              let a = document.createElement("a");
-              a.setAttribute("href", "/videos/" + link);
-              a.setAttribute("target", "_blank");
-              a.innerHTML = "LINK";
-              td.appendChild(a);
-            }
-            if(j===0){td.innerHTML=eventsname}
-            if (j === 2) {
-              td.innerHTML = date;
-            }
-            if (j === 3) {
-              td.innerHTML = uploadeduser;
-            }
-
-            tr.appendChild(td);
-          }
-          tb.appendChild(tr);
-        }
-      },
-    });
-
+      tab.innerHTML = tab.innerHTML + "<tbody>" + temptb + "</tbody>";
+    },
+  });
 });
 
+$("#analytics").on("click", () => {
+  $.ajax({
+    type: "GET",
+    url: "/analaytics/",
+    success: function (respone) {
+      let responeObject = respone.data;
+      let tab = document.getElementById("example");
+      tab.style.display = "none";
 
+      document.getElementById("HeaderOut").innerHTML = " statistics";
+      document.getElementById("dia").style.display = "flex";
+      document.getElementById(
+        "diag"
+      ).innerHTML = `<canvas id="statcPie" ></canvas>`;
+      let diag = document.getElementById("statcPie").getContext("2d");
 
-$("#analytics").on('click',()=>{
+      const data = {
+        labels: ["CORRECTED ", "PENDING"],
 
-   $.ajax({
-     type: "GET",
-     url: "/analaytics/",
-     success: function (respone) {
-       document.getElementsByClassName("output")[0].style.display="none";
-       document.getElementById("dia").style.display = "flex";
-       document.getElementById(
-         "diag"
-       ).innerHTML = `<canvas id="statcPie" ></canvas>`;
-       let diag = document.getElementById("statcPie").getContext("2d");
+        datasets: [
+          {
+            label: "My First Dataset",
+            data: [respone.Actual_corrected, respone.Left_count],
+            backgroundColor: ["rgb(255, 99, 132)", "rgb(54, 162, 235)"],
+            hoverOffset: 4,
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              layout: {
+                padding: 20,
+              },
+            },
+          },
+        ],
+      };
 
-         const data = {
-           labels: ["CORRECTED ", "PENDING"],
+      const config = {
+        type: "pie",
+        data: data,
+      };
 
-           datasets: [
-             {
-               label: "My First Dataset",
-               data: [respone.Actual_corrected, respone.Left_count],
-               backgroundColor: ["rgb(255, 99, 132)", "rgb(54, 162, 235)"],
-               hoverOffset: 4,
-               options: {
-                 responsive: true,
-                 maintainAspectRatio: false,
-                 layout: {
-                   padding: 20,
-                 },
-               },
-             },
-           ],
-         };
-         
-            const config = {
-              type: "pie",
-              data: data,
-              
-            };
-           
-            let  myChart = new Chart(diag, config);
-       
-     },
-   });
+      let myChart = new Chart(diag, config);
+    },
+  });
 });
+
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("example");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}

@@ -1,2 +1,3 @@
 # Choros-App
 DJANGO
+# WITH MEDIA FILES
